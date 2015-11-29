@@ -1,22 +1,18 @@
-package br.ufrrj.projeto.oficinatoretto.controle;
+package br.ufrrj.projeto.oficinatoretto.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.ufrrj.projeto.oficinatoretto.dao.UsuarioDAO;
-import br.ufrrj.projeto.oficinatoretto.modelo.Usuario;
+import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 
 public class UsuarioController {
 	
-	private Date formatarData(String data) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return new Date( formatter.parse(data).getTime() );
-    }
+	public Usuario login(String userName, String password) {
+		UsuarioDAO dao = new UsuarioDAO();
+        return dao.login(userName, password);
+	}
 
     public void salvar(String userName, String password, String nome) throws Exception {
         Usuario usuario = new Usuario();
@@ -49,11 +45,6 @@ public class UsuarioController {
 
     public void excluir(Integer id) throws Exception {
         new UsuarioDAO().excluir(id);
-    }
-
-    public Usuario buscaUsuarioPorNome(String nome) throws Exception {
-        UsuarioDAO dao = new UsuarioDAO();
-        return dao.findByName(nome);
     }
 
 }

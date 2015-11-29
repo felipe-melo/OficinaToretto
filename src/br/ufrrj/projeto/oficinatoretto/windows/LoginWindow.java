@@ -1,4 +1,4 @@
-package br.ufrrj.projeto.oficinatoretto.janelas;
+package br.ufrrj.projeto.oficinatoretto.windows;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -13,8 +13,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import br.ufrrj.projeto.oficinatoretto.controle.UsuarioController;
-import br.ufrrj.projeto.oficinatoretto.modelo.Usuario;
+import br.ufrrj.projeto.oficinatoretto.controller.UsuarioController;
+import br.ufrrj.projeto.oficinatoretto.model.Usuario;
+import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class LoginWindow extends JFrame implements ActionListener {
 
@@ -84,7 +85,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 	
 	private boolean canLogin() {
 		if (this.login.getText().equals("") || this.password.getPassword().length == 0) {
-			JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
+			StaticMethods.showAlertMessage("Login ou senha inválidos");
 			return false;
 		}
 		return true;
@@ -95,12 +96,14 @@ public class LoginWindow extends JFrame implements ActionListener {
 		if (this.canLogin()) {
 			UsuarioController controller = new UsuarioController();
 			try {
-				Usuario usu = controller.buscaUsuarioPorNome(this.login.getText());
+				String pass = new String (this.password.getPassword());
+				Usuario usuario = controller.login(this.login.getText(), pass); 
+				setVisible(false);
+		        new MainWindow(usuario).setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
+				StaticMethods.showAlertMessage(e.getMessage());
 			}
-			//setVisible(false);
-	        //new MainWindow().setVisible(true);
 		}
 	}
 }

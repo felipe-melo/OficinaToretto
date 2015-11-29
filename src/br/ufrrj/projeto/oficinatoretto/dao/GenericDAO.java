@@ -10,13 +10,13 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import br.ufrrj.projeto.oficinatoretto.modelo.IEntity;
+import br.ufrrj.projeto.oficinatoretto.model.IEntity;
 
 public abstract class GenericDAO<T extends IEntity> {
 	
 	@PersistenceContext(unitName="oficinaToretto")
-	private final EntityManager entityManager;
-	private final Class<T> persistentClass;
+	protected final EntityManager entityManager;
+	protected final Class<T> persistentClass;
 	
 	public GenericDAO() {
         this.entityManager = EntityManagerUtil.getEntityManager();
@@ -85,11 +85,7 @@ public abstract class GenericDAO<T extends IEntity> {
 			.add(Restrictions.eq("nome", nome).ignoreCase()).uniqueResult();
     }
 
-    public T findById(long id) {
-        Session session = (Session) getEntityManager().getDelegate();
-        return (T) session.createCriteria(persistentClass)
-			.add(Restrictions.eq("id", id)).uniqueResult();
-    }
+    public abstract T findById(Integer id);
 
     private void close() {
         if (getEntityManager().isOpen()) {
