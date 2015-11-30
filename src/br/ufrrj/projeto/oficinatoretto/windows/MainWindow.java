@@ -1,14 +1,13 @@
 package br.ufrrj.projeto.oficinatoretto.windows;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
-import javax.swing.JTabbedPane;
-import javax.swing.JLayeredPane;
+import br.ufrrj.projeto.oficinatoretto.panels.FabricantePanel;
+import br.ufrrj.projeto.oficinatoretto.panels.UsuarioPanel;
 
 public class MainWindow extends JFrame {
 
@@ -29,10 +28,10 @@ public class MainWindow extends JFrame {
 		tabbedPane.setBounds(10, 11, 764, 539);
 		contentPane.add(tabbedPane);
 		
-		JLayeredPane layeredPane = new JLayeredPane();
-		tabbedPane.addTab("Cliente", null, layeredPane, null);
+		UsuarioPanel usuarioPanel = new UsuarioPanel();
+		tabbedPane.addTab("Cliente", null, usuarioPanel, null);
 		
-		JLayeredPane layeredPane_1 = new JLayeredPane();
-		tabbedPane.addTab("Reparos", null, layeredPane_1, null);
+		FabricantePanel fabricantePanel = new FabricantePanel();
+		tabbedPane.addTab("Fabricante", null, fabricantePanel, null);
 	}
 }

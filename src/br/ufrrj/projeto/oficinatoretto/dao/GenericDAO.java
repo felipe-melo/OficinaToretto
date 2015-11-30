@@ -14,7 +14,7 @@ import br.ufrrj.projeto.oficinatoretto.model.IEntity;
 
 public abstract class GenericDAO<T extends IEntity> {
 	
-	@PersistenceContext(unitName="oficinaToretto")
+	@PersistenceContext(unitName="oficinaTorettoDB")
 	protected final EntityManager entityManager;
 	protected final Class<T> persistentClass;
 	
@@ -28,7 +28,7 @@ public abstract class GenericDAO<T extends IEntity> {
         return entityManager;
     }
 	
-	protected void save(T entity) {
+	protected void save(T entity) throws Exception {
         EntityTransaction tx = getEntityManager().getTransaction();
 
         try {
@@ -38,6 +38,7 @@ public abstract class GenericDAO<T extends IEntity> {
         } catch (Throwable t) {
             t.printStackTrace();
             tx.rollback();
+            throw new Exception();
         } finally {
             close();
         }
@@ -91,15 +92,6 @@ public abstract class GenericDAO<T extends IEntity> {
         if (getEntityManager().isOpen()) {
             getEntityManager().close();
         }
-        shutdown();
-    }
-
-    private void shutdown() {
-        EntityManager em = EntityManagerUtil.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        em.createNativeQuery("SHUTDOWN").executeUpdate();
-        em.close();
     }
 
 }

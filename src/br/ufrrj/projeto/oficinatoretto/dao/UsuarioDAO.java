@@ -21,7 +21,11 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 	}
 	
 	public void salvar(Usuario usuario) {
-        save(usuario);
+        try {
+			save(usuario);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Não foi possível salvar o usuário.");
+		}
     }
 
     public void alterar(Usuario usuario) {
