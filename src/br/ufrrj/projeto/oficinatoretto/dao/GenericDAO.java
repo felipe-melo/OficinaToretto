@@ -35,11 +35,14 @@ public abstract class GenericDAO<T extends IEntity> {
             tx.begin();
             getEntityManager().persist(entity);
             tx.commit();
+            throw new Exception("qualquer try");
         } catch (Throwable t) {
+        	System.out.println("catch");
             t.printStackTrace();
             tx.rollback();
-            throw new Exception();
+            throw new Exception("qualquer catch");
         } finally {
+        	System.out.println("finally");
             close();
         }
     }

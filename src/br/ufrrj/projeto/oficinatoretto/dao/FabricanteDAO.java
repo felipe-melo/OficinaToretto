@@ -11,6 +11,7 @@ public class FabricanteDAO extends GenericDAO<Fabricante>{
         try {
 			save(fabricante);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new IllegalArgumentException("Não foi possível salvar o fabricante.");
 		}
     }
