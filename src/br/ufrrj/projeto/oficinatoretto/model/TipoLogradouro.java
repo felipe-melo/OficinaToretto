@@ -16,6 +16,9 @@ public class TipoLogradouro implements IEntity{
 	@Column(name="logr_id")
 	private Integer idTipoLogradouro;
 	
+	@Column(name="logr_tipo")
+	private String tipo;
+	
 	@Override
 	public boolean isNew() {
 		return getIdTipoLogradouro() == null;
@@ -27,6 +30,14 @@ public class TipoLogradouro implements IEntity{
 
 	public void setIdTipoLogradouro(Integer idTipoLogradouro) {
 		this.idTipoLogradouro = idTipoLogradouro;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

@@ -3,6 +3,9 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,8 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.ufrrj.projeto.oficinatoretto.controller.FornecedorController;
+import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Endereco;
 import br.ufrrj.projeto.oficinatoretto.model.Fornecedor;
+import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class FornecedorPanel extends JLayeredPane {
@@ -23,6 +28,7 @@ public class FornecedorPanel extends JLayeredPane {
 	private JFormattedTextField telefone;
 	private JTextField nome;
 	private JTextField responsavel;
+	private JComboBox tipoLogradouro;
 	private JTextField logradouro;
 	private JTextField numero;
 	private JTextField complemento;
@@ -30,6 +36,8 @@ public class FornecedorPanel extends JLayeredPane {
 	private JTextField cidade;
 	private JTextField estado;
 	private JTextField cep;
+	
+	private Map<String, Integer> map = new HashMap<String, Integer>();
 	
 	public FornecedorPanel() {
 		setLayout(null);
@@ -45,14 +53,16 @@ public class FornecedorPanel extends JLayeredPane {
 					FornecedorController controller = new FornecedorController();
 					try {
 						
-						Fornecedor fornecedor = new Fornecedor();
-						fornecedor.setNome(nome.getText());
-						fornecedor.setTelefone(telefone.getText());
-						fornecedor.setNome(nome.getText());
+						TipoLogradouro tipo = new TipoLogradouro();
 						
-						Endereco endereco = new Endereco();
+						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
 						
-						//controller.salvar(fornecedor);
+						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
+								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
+						
+						Fornecedor fornecedor = new Fornecedor(nome.getText(), telefone.getText(), responsavel.getText(), endereco);
+						
+						controller.salvar(fornecedor);
 						StaticMethods.showAlertMessage("Fornecedor salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -84,7 +94,7 @@ public class FornecedorPanel extends JLayeredPane {
 		lblNome_1.setBounds(10, 62, 46, 14);
 		add(lblNome_1);
 		
-		JLabel lblResponsvel = new JLabel("Respons\u00E1vel");
+		JLabel lblResponsvel = new JLabel("Responsável");
 		lblResponsvel.setBounds(10, 112, 67, 14);
 		add(lblResponsvel);
 		
@@ -97,7 +107,18 @@ public class FornecedorPanel extends JLayeredPane {
 		lblTipoLogradouro.setBounds(10, 140, 89, 14);
 		add(lblTipoLogradouro);
 		
-		JComboBox tipoLogradouro = new JComboBox();
+		TipoLogradouroDAO dao = new TipoLogradouroDAO();
+		
+		try {
+			ArrayList<TipoLogradouro> lista = (ArrayList<TipoLogradouro>) dao.findAll();
+			for (TipoLogradouro tipo : lista) {
+				map.put(tipo.getTipo(), tipo.getIdTipoLogradouro());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		tipoLogradouro = new JComboBox(map.keySet().toArray());
 		tipoLogradouro.setBounds(136, 134, 179, 20);
 		add(tipoLogradouro);
 		

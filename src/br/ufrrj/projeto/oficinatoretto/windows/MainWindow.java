@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 import br.ufrrj.projeto.oficinatoretto.panels.FabricantePanel;
+import br.ufrrj.projeto.oficinatoretto.panels.FornecedorPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.UsuarioPanel;
 
 public class MainWindow extends JFrame {
@@ -33,5 +34,8 @@ public class MainWindow extends JFrame {
 		
 		FabricantePanel fabricantePanel = new FabricantePanel();
 		tabbedPane.addTab("Fabricante", null, fabricantePanel, null);
+		
+		FornecedorPanel fornecedorPanel = new FornecedorPanel();
+		tabbedPane.addTab("Fornecedor", null, fornecedorPanel, null);
 	}
 }

@@ -28,21 +28,17 @@ public abstract class GenericDAO<T extends IEntity> {
         return entityManager;
     }
 	
-	protected void save(T entity) throws Exception {
+	protected void save(T entity) {
         EntityTransaction tx = getEntityManager().getTransaction();
 
         try {
             tx.begin();
             getEntityManager().persist(entity);
             tx.commit();
-            throw new Exception("qualquer try");
         } catch (Throwable t) {
-        	System.out.println("catch");
             t.printStackTrace();
             tx.rollback();
-            throw new Exception("qualquer catch");
         } finally {
-        	System.out.println("finally");
             close();
         }
     }

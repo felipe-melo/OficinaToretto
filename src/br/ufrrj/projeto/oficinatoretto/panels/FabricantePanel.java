@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import br.ufrrj.projeto.oficinatoretto.controller.FabricanteController;
+import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class FabricantePanel extends JLayeredPane {
@@ -33,7 +34,11 @@ public class FabricantePanel extends JLayeredPane {
 				if (canSave()) {
 					FabricanteController controller = new FabricanteController();
 					try {
-						controller.salvar(telefone.getText(), nome.getText());
+						Fabricante fabricante = new Fabricante();
+						fabricante.setNome(nome.getText());
+						fabricante.setTelefone(telefone.getText());
+						
+						controller.salvar(fabricante);
 						StaticMethods.showAlertMessage("Fabricante salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

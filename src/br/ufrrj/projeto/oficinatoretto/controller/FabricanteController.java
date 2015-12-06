@@ -9,19 +9,11 @@ import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
 
 public class FabricanteController {
 
-    public void salvar(String nome, String telefone) throws Exception {
-        Fabricante fabricante = new Fabricante();
-        fabricante.setTelefone(telefone);
-        fabricante.setNome(nome);
-        
+    public void salvar(Fabricante fabricante) throws Exception {
         new FabricanteDAO().salvar(fabricante);
     }
 
-    public void alterar(String nome, String telefone) throws Exception {
-        Fabricante fabricante = new Fabricante();
-        fabricante.setTelefone(telefone);
-        fabricante.setNome(nome);
-
+    public void alterar(Fabricante fabricante) throws Exception {
         new FabricanteDAO().alterar(fabricante);
     }
 

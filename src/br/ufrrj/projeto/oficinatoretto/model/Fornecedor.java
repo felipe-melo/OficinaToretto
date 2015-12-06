@@ -1,5 +1,6 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +16,16 @@ public class Fornecedor implements IEntity{
 	
 	private static final long serialVersionUID = 4790716137162703694L;
 	
+	public Fornecedor(String nome, String telefone, String responsavel, Endereco endereco) {
+		this.nome = nome;
+		this.telefone = telefone;
+		this.responsavel = responsavel;
+		this.endereco = endereco;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="fabr_id")
+	@Column(name="forn_id")
 	private Integer idFornecedor;
 	
 	@Column(name="forn_nome")
@@ -26,10 +34,10 @@ public class Fornecedor implements IEntity{
 	@Column(name="forn_telefone")
 	private String telefone;
 	
-	@Column(name="forn_responsavel")
+	@Column(name="forn_nome_vendedor")
 	private String responsavel;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="ende_id")
 	private Endereco endereco;
 	

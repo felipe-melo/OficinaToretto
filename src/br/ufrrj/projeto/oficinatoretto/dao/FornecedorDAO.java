@@ -11,7 +11,7 @@ public class FornecedorDAO extends GenericDAO<Fornecedor>{
         try {
 			save(fabricante);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Não foi possível salvar o fabricante.");
+			throw new IllegalArgumentException("Não foi possível salvar o fornecedor.");
 		}
     }
 

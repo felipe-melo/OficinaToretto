@@ -9,19 +9,11 @@ import br.ufrrj.projeto.oficinatoretto.model.Fornecedor;
 
 public class FornecedorController {
 
-    public void salvar(String nome, String telefone) throws Exception {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setTelefone(telefone);
-        fornecedor.setNome(nome);
-        
+    public void salvar(Fornecedor fornecedor) throws Exception {
         new FornecedorDAO().salvar(fornecedor);
     }
 
-    public void alterar(String nome, String telefone) throws Exception {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setTelefone(telefone);
-        fornecedor.setNome(nome);
-
+    public void alterar(Fornecedor fornecedor) throws Exception {
         new FornecedorDAO().alterar(fornecedor);
     }
 
