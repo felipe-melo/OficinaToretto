@@ -119,7 +119,7 @@ public class FornecedorPanel extends JLayeredPane {
 		}
 		
 		tipoLogradouro = new JComboBox(map.keySet().toArray());
-		tipoLogradouro.setBounds(136, 134, 179, 20);
+		tipoLogradouro.setBounds(136, 135, 179, 20);
 		add(tipoLogradouro);
 		
 		JLabel lblLogradouro = new JLabel("Logradouro");

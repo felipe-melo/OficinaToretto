@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.ufrrj.projeto.oficinatoretto.dao.UsuarioDAO;
+import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 
 public class UsuarioController {
 	
 	public Usuario login(String userName, String password) {
-		UsuarioDAO dao = new UsuarioDAO();
+		ClienteDAO dao = new ClienteDAO();
         return dao.login(userName, password);
 	}
 
@@ -20,7 +20,7 @@ public class UsuarioController {
         usuario.setUserName(userName);
         usuario.setPassword(password);
 
-        new UsuarioDAO().salvar(usuario);
+        new ClienteDAO().salvar(usuario);
     }
 
     public void alterar(Integer id, String userName, String password, String nome) throws Exception {
@@ -30,11 +30,11 @@ public class UsuarioController {
         usuario.setPassword(password);
         usuario.setNome(nome);
 
-        new UsuarioDAO().alterar(usuario);
+        new ClienteDAO().alterar(usuario);
     }
 
     public List<Usuario> listaUsuarios() {
-        UsuarioDAO dao = new UsuarioDAO();
+        ClienteDAO dao = new ClienteDAO();
         try {
             return dao.findAll();
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class UsuarioController {
     }
 
     public void excluir(Integer id) throws Exception {
-        new UsuarioDAO().excluir(id);
+        new ClienteDAO().excluir(id);
     }
 
 }

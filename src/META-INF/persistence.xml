@@ -8,6 +8,9 @@
     	<class>br.ufrrj.projeto.oficinatoretto.model.Gerente</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.Mecanico</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.Fabricante</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Fornecedor</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Cliente</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Carro</class>
     	
 	    <properties>	
 	    	<property name="hibernate.connection.url" value="jdbc:postgresql://localhost/postgres"/>
