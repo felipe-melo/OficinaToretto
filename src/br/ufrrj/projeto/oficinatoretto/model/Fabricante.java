@@ -24,6 +24,11 @@ public class Fabricante implements IEntity{
 	@Column(name="fabr_telefone")
 	private String telefone;
 	
+	public Fabricante(String nome, String telefone) {
+		this.nome = nome;
+		this.telefone = telefone;
+	}
+	
 	@Override
 	public boolean isNew() {
 		return getIdFabricante() == null;

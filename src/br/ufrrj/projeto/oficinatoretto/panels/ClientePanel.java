@@ -1,17 +1,35 @@
 package br.ufrrj.projeto.oficinatoretto.panels;
 
-import java.awt.List;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
+
+import br.ufrrj.projeto.oficinatoretto.controller.ClienteController;
+import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
+import br.ufrrj.projeto.oficinatoretto.model.Carro;
+import br.ufrrj.projeto.oficinatoretto.model.Cliente;
+import br.ufrrj.projeto.oficinatoretto.model.Endereco;
+import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
+import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class ClientePanel extends JLayeredPane {
+	
 	private JTextField nome;
 	private JTextField cpf;
-	private JTextField textField_2;
+	private JTextField telefone;
 	private JTextField numero;
 	private JTextField logradouro;
 	private JTextField complemento;
@@ -19,6 +37,18 @@ public class ClientePanel extends JLayeredPane {
 	private JTextField cidade;
 	private JTextField estado;
 	private JTextField cep;
+	
+	private JComboBox tipoLogradouro;
+	
+	private List<Carro> carros;
+	private JScrollPane scrollPane;
+	
+	private DefaultTableModel aModel;
+	
+	private String[] columnNames = {"Marca", "Modelo", "Ano", "Placa"};
+	
+	private Map<String, Integer> map = new HashMap<String, Integer>();
+	
 	public ClientePanel() {
 		setLayout(null);
 		
@@ -44,20 +74,22 @@ public class ClientePanel extends JLayeredPane {
 		lblTelefone.setBounds(10, 94, 46, 14);
 		add(lblTelefone);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(109, 94, 132, 20);
-		add(textField_2);
-		textField_2.setColumns(10);
-		
-		List list = new List();
-		list.setBounds(10, 279, 735, 150);
-		add(list);
+		telefone = new JTextField();
+		telefone.setBounds(109, 94, 132, 20);
+		add(telefone);
+		telefone.setColumns(10);
 		
 		JLabel lblCarros = new JLabel("Carros");
 		lblCarros.setBounds(10, 254, 46, 14);
 		add(lblCarros);
 		
 		JButton btnAdicionar = new JButton("Novo");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CarroDialog carroDialog = new CarroDialog(ClientePanel.this);
+				carroDialog.show();
+			}
+		});
 		btnAdicionar.setBounds(67, 250, 89, 23);
 		add(btnAdicionar);
 		
@@ -66,6 +98,32 @@ public class ClientePanel extends JLayeredPane {
 		add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (ClientePanel.this.canSave()) {
+					ClienteController controller = new ClienteController();
+					try {
+						
+						TipoLogradouro tipo = new TipoLogradouro();
+						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
+						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
+								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
+						
+						Cliente cliente = new Cliente(nome.getText(), cpf.getText(), telefone.getText(), endereco, ClientePanel.this.carros);
+						
+						for (Carro car : ClientePanel.this.carros) {
+							car.setCliente(cliente);
+						}
+						
+						controller.salvar(cliente);
+						StaticMethods.showAlertMessage("Cliente salvo com sucesso");
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						StaticMethods.showAlertMessage(e1.getMessage());
+					}
+				}
+			}
+		});
 		btnNewButton_1.setBounds(10, 472, 89, 23);
 		add(btnNewButton_1);
 		
@@ -73,7 +131,18 @@ public class ClientePanel extends JLayeredPane {
 		lblTipoLogradouro.setBounds(10, 142, 89, 14);
 		add(lblTipoLogradouro);
 		
-		JComboBox tipoLogradouro = new JComboBox();
+		TipoLogradouroDAO dao = new TipoLogradouroDAO();
+		
+		try {
+			ArrayList<TipoLogradouro> lista = (ArrayList<TipoLogradouro>) dao.findAll();
+			for (TipoLogradouro tipo : lista) {
+				map.put(tipo.getTipo(), tipo.getIdTipoLogradouro());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		tipoLogradouro = new JComboBox(map.keySet().toArray());
 		tipoLogradouro.setBounds(109, 139, 132, 20);
 		add(tipoLogradouro);
 		
@@ -139,5 +208,91 @@ public class ClientePanel extends JLayeredPane {
 		cep.setColumns(10);
 		cep.setBounds(451, 183, 132, 20);
 		add(cep);
+		
+		aModel = new DefaultTableModel();
+		aModel.setColumnIdentifiers(columnNames);
+		
+		JTable table = new JTable();
+		table.setModel(aModel);
+		
+		scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(45, 298, 538, 145);
+		add(scrollPane, BorderLayout.CENTER );
+	}
+	
+	public void addCarroToCliente(Carro carro) {
+		if (this.carros == null) this.carros = new ArrayList<Carro>();
+		Object[] obj = new Object[4];
+		obj[0] = carro.getMarca();
+		obj[1] = carro.getModelo();
+		obj[2] = carro.getAno();
+		obj[3] = carro.getPlaca();
+		aModel.addRow(obj);
+		this.carros.add(carro);
+	}
+	
+	private boolean canSave(){
+		
+		if (nome.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo nome deve ser preenchido");
+			return false;
+		}
+		
+		if (cpf.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo CPF deve ser preenchido");
+			return false;
+		}
+		
+		if (telefone.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo CPF deve ser preenchido");
+			return false;
+		}
+		
+		if (telefone.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo CPF deve ser preenchido");
+			return false;
+		}
+		
+		/*if (tipoLogradouro.getSelectedIndex() == 0){
+			StaticMethods.showAlertMessage("O campo tipo logradouro deve ser preenchido");
+			return false;
+		}*/
+		
+		if (logradouro.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo logradouro deve ser preenchido");
+			return false;
+		}
+		
+		if (numero.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
+			return false;
+		}
+		
+		if (complemento.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
+			return false;
+		}
+		
+		if (bairro.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo bairro deve ser preenchido");
+			return false;
+		}
+		
+		if (cidade.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
+			return false;
+		}
+		
+		if (estado.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo estado deve ser preenchido");
+			return false;
+		}
+		
+		if (cep.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
+			return false;
+		}
+		
+		return true;
 	}
 }

@@ -1,47 +1,35 @@
 package br.ufrrj.projeto.oficinatoretto.dao;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import br.ufrrj.projeto.oficinatoretto.model.Usuario;
+import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 
-public class ClienteDAO extends GenericDAO<Usuario>{
+public class ClienteDAO extends GenericDAO<Cliente>{
 	
-	public Usuario login(String userName, String password) throws IllegalArgumentException {
-		Query query = entityManager.createQuery("SELECT u from Usuario u WHERE u.userName = :user and u.password = :pwd");
-		query.setParameter("user", userName);
-		query.setParameter("pwd", password);
-		try {
-			return (Usuario) query.getSingleResult();
-		} catch (Exception e){
-			throw new IllegalArgumentException("Usuario ou senha inválido.");
-		}
-	}
-	
-	public void salvar(Usuario usuario) {
+	public void salvar(Cliente cliente) {
         try {
-			save(usuario);
+			save(cliente);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Não foi possível salvar o usuário.");
+			e.printStackTrace();
+			throw new IllegalArgumentException("Não foi possível salvar o cliente.");
 		}
     }
 
-    public void alterar(Usuario usuario) {
-        update(usuario);
+    public void alterar(Cliente cliente) {
+        update(cliente);
     }
 
     public void excluir(Integer id) {
-        Usuario c = findById(id);
-        delete(c);
+        Cliente f = findById(id);
+        delete(f);
     }
 
 	@Override
-	public Usuario findById(Integer id) {
+	public Cliente findById(Integer id) {
 		Session session = (Session) getEntityManager().getDelegate();
-        return (Usuario) session.createCriteria(persistentClass)
-			.add(Restrictions.eq("usua_id", id)).uniqueResult();
+        return (Cliente) session.createCriteria(persistentClass)
+			.add(Restrictions.eq("clie_id", id)).uniqueResult();
 	}
 
 }

@@ -54,9 +54,7 @@ public class FornecedorPanel extends JLayeredPane {
 					try {
 						
 						TipoLogradouro tipo = new TipoLogradouro();
-						
 						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
-						
 						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
 								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
 						

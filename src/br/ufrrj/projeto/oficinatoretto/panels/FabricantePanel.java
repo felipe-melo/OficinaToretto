@@ -34,10 +34,7 @@ public class FabricantePanel extends JLayeredPane {
 				if (canSave()) {
 					FabricanteController controller = new FabricanteController();
 					try {
-						Fabricante fabricante = new Fabricante();
-						fabricante.setNome(nome.getText());
-						fabricante.setTelefone(telefone.getText());
-						
+						Fabricante fabricante = new Fabricante(nome.getText(), telefone.getText());
 						controller.salvar(fabricante);
 						StaticMethods.showAlertMessage("Fabricante salvo com sucesso");
 					} catch (Exception e1) {
