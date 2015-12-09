@@ -24,6 +24,10 @@ public class Fabricante implements IEntity{
 	@Column(name="fabr_telefone")
 	private String telefone;
 	
+	public Fabricante() {
+		
+	}
+	
 	public Fabricante(String nome, String telefone) {
 		this.nome = nome;
 		this.telefone = telefone;
@@ -38,7 +42,7 @@ public class Fabricante implements IEntity{
 		return this.idFabricante;
 	}
 
-	public void setUsuario(Integer idFabricante) {
+	public void setIdFabricante(Integer idFabricante) {
 		this.idFabricante = idFabricante;
 	}
 
@@ -51,7 +55,7 @@ public class Fabricante implements IEntity{
 	}
 	
 	public String getNome() {
-		return telefone;
+		return nome;
 	}
 
 	public void setNome(String nome) {

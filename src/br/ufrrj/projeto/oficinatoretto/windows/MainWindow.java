@@ -6,9 +6,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
+import br.ufrrj.projeto.oficinatoretto.panels.CategoriaPanel;
+import br.ufrrj.projeto.oficinatoretto.panels.ClientePanel;
 import br.ufrrj.projeto.oficinatoretto.panels.FabricantePanel;
 import br.ufrrj.projeto.oficinatoretto.panels.FornecedorPanel;
-import br.ufrrj.projeto.oficinatoretto.panels.ClientePanel;
+import br.ufrrj.projeto.oficinatoretto.panels.PecaPanel;
 
 public class MainWindow extends JFrame {
 
@@ -37,5 +39,11 @@ public class MainWindow extends JFrame {
 		
 		FornecedorPanel fornecedorPanel = new FornecedorPanel();
 		tabbedPane.addTab("Fornecedor", null, fornecedorPanel, null);
+		
+		CategoriaPanel categoriaPanel = new CategoriaPanel();
+		tabbedPane.addTab("Categoria", null, categoriaPanel, null);
+		
+		PecaPanel pecaPanel = new PecaPanel();
+		tabbedPane.addTab("Categoria", null, pecaPanel, null);
 	}
 }
