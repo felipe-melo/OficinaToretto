@@ -44,6 +44,6 @@ public class MainWindow extends JFrame {
 		tabbedPane.addTab("Categoria", null, categoriaPanel, null);
 		
 		PecaPanel pecaPanel = new PecaPanel();
-		tabbedPane.addTab("Categoria", null, pecaPanel, null);
+		tabbedPane.addTab("Peça", null, pecaPanel, null);
 	}
 }

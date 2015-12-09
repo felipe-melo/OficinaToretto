@@ -33,7 +33,8 @@ public class PecaPanel extends JLayeredPane {
 	private JComboBox fabricante;
 	private JTextField quantidade;
 	
-	private Map<String, Integer> map = new HashMap<String, Integer>();
+	private Map<String, Integer> mapCat = new HashMap<String, Integer>();
+	private Map<String, Integer> mapFab = new HashMap<String, Integer>();
 	
 	public PecaPanel() {
 		setLayout(null);
@@ -50,10 +51,10 @@ public class PecaPanel extends JLayeredPane {
 					try {
 						
 						Categoria cat = new Categoria();
-						cat.setIdCategoria(map.get(categoria.getSelectedItem()));
+						cat.setIdCategoria(mapCat.get(categoria.getSelectedItem()));
 						
 						Fabricante fab = new Fabricante();
-						fab.setIdFabricante(map.get(fabricante.getSelectedItem()));
+						fab.setIdFabricante(mapFab.get(fabricante.getSelectedItem()));
 						
 						BigDecimal compra = new BigDecimal(valorCompra.getText());
 						BigDecimal venda = new BigDecimal(valorVenda.getText());
@@ -76,7 +77,6 @@ public class PecaPanel extends JLayeredPane {
 		
 		valorCompra = new JFormattedTextField();
 		valorCompra.setBounds(185, 112, 179, 20);
-		mascara.install(valorCompra);
 		add(valorCompra);
 		valorCompra.setColumns(10);
 		
@@ -107,13 +107,13 @@ public class PecaPanel extends JLayeredPane {
 		try {
 			ArrayList<Categoria> lista = (ArrayList<Categoria>) dao.findAll();
 			for (Categoria cat : lista) {
-				map.put(cat.getNome(), cat.getIdCategoria());
+				mapCat.put(cat.getNome(), cat.getIdCategoria());
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
-		categoria = new JComboBox(map.keySet().toArray());
+		categoria = new JComboBox(mapCat.keySet().toArray());
 		categoria.setBounds(185, 196, 179, 20);
 		add(categoria);
 		
@@ -131,13 +131,13 @@ public class PecaPanel extends JLayeredPane {
 		try {
 			ArrayList<Fabricante> lista = (ArrayList<Fabricante>) fabDao.findAll();
 			for (Fabricante fab : lista) {
-				map.put(fab.getNome(), fab.getIdFabricante());
+				mapFab.put(fab.getNome(), fab.getIdFabricante());
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
-		fabricante = new JComboBox(map.keySet().toArray());
+		fabricante = new JComboBox(mapFab.keySet().toArray());
 		fabricante.setBounds(185, 227, 179, 20);
 		add(fabricante);
 		
