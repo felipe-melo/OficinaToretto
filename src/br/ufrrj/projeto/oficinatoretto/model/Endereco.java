@@ -25,6 +25,10 @@ public class Endereco implements IEntity{
 		this.cep = cep;
 	}
 	
+	public Endereco() {
+		
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ende_id")

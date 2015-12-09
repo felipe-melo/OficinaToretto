@@ -26,6 +26,8 @@ public class Fornecedor implements IEntity{
 		this.endereco = endereco;
 	}
 	
+	public Fornecedor(){}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="forn_id")
@@ -66,7 +68,7 @@ public class Fornecedor implements IEntity{
 	}
 	
 	public String getNome() {
-		return telefone;
+		return nome;
 	}
 
 	public void setNome(String nome) {

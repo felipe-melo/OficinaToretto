@@ -7,25 +7,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import br.ufrrj.projeto.oficinatoretto.controller.PecaController;
 import br.ufrrj.projeto.oficinatoretto.dao.CategoriaDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.FabricanteDAO;
+import br.ufrrj.projeto.oficinatoretto.dao.FornecedorDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Categoria;
 import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
+import br.ufrrj.projeto.oficinatoretto.model.Fornecedor;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class PecaPanel extends JLayeredPane {
 	
-	private MaskFormatter mascara;
 	private JFormattedTextField valorCompra;
 	private JTextField descricao;
 	private JTextField valorVenda;
@@ -33,14 +36,20 @@ public class PecaPanel extends JLayeredPane {
 	private JComboBox fabricante;
 	private JTextField quantidade;
 	
+	private DefaultListModel nAssociado;
+	private DefaultListModel associado;
+	
 	private Map<String, Integer> mapCat = new HashMap<String, Integer>();
 	private Map<String, Integer> mapFab = new HashMap<String, Integer>();
+	private Map<String, Integer> mapFor = new HashMap<String, Integer>();
+	
+	private Map<String, Integer> mapAssociados = new HashMap<String, Integer>();
 	
 	public PecaPanel() {
 		setLayout(null);
 		
 		JLabel lblNome = new JLabel("Valor de Compra");
-		lblNome.setBounds(59, 118, 46, 14);
+		lblNome.setBounds(59, 115, 116, 14);
 		add(lblNome);
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
@@ -86,11 +95,11 @@ public class PecaPanel extends JLayeredPane {
 		descricao.setColumns(10);
 		
 		JLabel lblNome_1 = new JLabel("Descri\u00E7\u00E3o");
-		lblNome_1.setBounds(59, 93, 46, 14);
+		lblNome_1.setBounds(59, 84, 89, 14);
 		add(lblNome_1);
 		
 		JLabel lblResponsvel = new JLabel("Valor de Venda");
-		lblResponsvel.setBounds(59, 143, 67, 14);
+		lblResponsvel.setBounds(59, 140, 120, 14);
 		add(lblResponsvel);
 		
 		valorVenda = new JTextField();
@@ -144,6 +153,48 @@ public class PecaPanel extends JLayeredPane {
 		JLabel lblFabricante = new JLabel("Fabricante");
 		lblFabricante.setBounds(59, 232, 89, 14);
 		add(lblFabricante);
+		
+		FornecedorDAO forDao = new FornecedorDAO();
+		
+		nAssociado = new DefaultListModel();
+		associado = new DefaultListModel();
+		
+		JList listNAssociado = new JList();
+		listNAssociado .setModel(nAssociado);
+		
+		JList listAssociado  = new JList();
+		listAssociado.setModel(associado);
+		
+		try {
+			ArrayList<Fornecedor> lista = (ArrayList<Fornecedor>) forDao.findAll();
+			for (Fornecedor forn : lista) {
+				mapFor.put(forn.getNome(), forn.getIdFornecedor());
+				nAssociado.addElement(forn.getNome());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		JScrollPane scrollNAssociado = new JScrollPane(listNAssociado );
+		scrollNAssociado.setBounds(59, 280, 116, 156);
+		add(scrollNAssociado);
+		
+		JScrollPane scrollAssociado = new JScrollPane(listAssociado );
+		scrollAssociado.setBounds(309, 280, 116, 156);
+		add(scrollAssociado);
+		
+		JButton btnNewButton = new JButton(">>");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("\n\n" + listAssociado.getSelectedValue().toString() + "\n\n");
+			}
+		});
+		btnNewButton.setBounds(199, 321, 89, 23);
+		add(btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("<<");
+		btnNewButton_2.setBounds(199, 355, 89, 23);
+		add(btnNewButton_2);
 	}
 	
 	private boolean canSave() {

@@ -11,6 +11,7 @@ import br.ufrrj.projeto.oficinatoretto.panels.ClientePanel;
 import br.ufrrj.projeto.oficinatoretto.panels.FabricantePanel;
 import br.ufrrj.projeto.oficinatoretto.panels.FornecedorPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.PecaPanel;
+import br.ufrrj.projeto.oficinatoretto.panels.ReparoPanel;
 
 public class MainWindow extends JFrame {
 
@@ -45,5 +46,8 @@ public class MainWindow extends JFrame {
 		
 		PecaPanel pecaPanel = new PecaPanel();
 		tabbedPane.addTab("Peça", null, pecaPanel, null);
+		
+		ReparoPanel reparoPanel = new ReparoPanel();
+		tabbedPane.addTab("Reparo", null, reparoPanel, null);
 	}
 }

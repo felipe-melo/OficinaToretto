@@ -217,7 +217,7 @@ public class ClientePanel extends JLayeredPane {
 		
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(45, 298, 538, 145);
-		add(scrollPane, BorderLayout.CENTER );
+		add(scrollPane, BorderLayout.CENTER);
 	}
 	
 	public void addCarroToCliente(Carro carro) {
