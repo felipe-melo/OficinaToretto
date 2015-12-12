@@ -104,7 +104,7 @@ CREATE TABLE "carro" (
 
 CREATE TABLE "orcamento" (
 	"orca_id" integer NOT NULL,
-	"orca_data" DATE NOT NULL,
+	"orca_data" TIMESTAMP NOT NULL,
 	"carr_id" integer NOT NULL,
 	"orca_comentario" TEXT NOT NULL,
 	"orca_aprovado" BOOLEAN NOT NULL,

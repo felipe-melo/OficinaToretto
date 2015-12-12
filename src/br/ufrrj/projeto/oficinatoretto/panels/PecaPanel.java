@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.DefaultListModel;
@@ -43,13 +44,11 @@ public class PecaPanel extends JLayeredPane {
 	private Map<String, Integer> mapFab = new HashMap<String, Integer>();
 	private Map<String, Integer> mapFor = new HashMap<String, Integer>();
 	
-	private Map<String, Integer> mapAssociados = new HashMap<String, Integer>();
-	
 	public PecaPanel() {
 		setLayout(null);
 		
 		JLabel lblNome = new JLabel("Valor de Compra");
-		lblNome.setBounds(59, 115, 116, 14);
+		lblNome.setBounds(59, 73, 116, 14);
 		add(lblNome);
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
@@ -68,8 +67,16 @@ public class PecaPanel extends JLayeredPane {
 						BigDecimal compra = new BigDecimal(valorCompra.getText());
 						BigDecimal venda = new BigDecimal(valorVenda.getText());
 						
+						List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+						
+						for (int i = 0; i < associado.getSize(); i++) {
+							Fornecedor f = new Fornecedor();
+							f.setIdFornecedor(mapFor.get(associado.getElementAt(i)));
+							fornecedores.add(f);
+						}
+						
 						Peca peca = new Peca(descricao.getText(), compra, venda, new Integer(quantidade.getText()),
-								cat, fab);
+								cat, fab, fornecedores);
 						
 						controller.salvar(peca);
 						StaticMethods.showAlertMessage("Peça salva com sucesso");
@@ -85,30 +92,30 @@ public class PecaPanel extends JLayeredPane {
 		
 		
 		valorCompra = new JFormattedTextField();
-		valorCompra.setBounds(185, 112, 179, 20);
+		valorCompra.setBounds(185, 70, 179, 20);
 		add(valorCompra);
 		valorCompra.setColumns(10);
 		
 		descricao = new JTextField();
-		descricao.setBounds(185, 81, 179, 20);
+		descricao.setBounds(185, 39, 179, 20);
 		add(descricao);
 		descricao.setColumns(10);
 		
 		JLabel lblNome_1 = new JLabel("Descri\u00E7\u00E3o");
-		lblNome_1.setBounds(59, 84, 89, 14);
+		lblNome_1.setBounds(59, 42, 89, 14);
 		add(lblNome_1);
 		
 		JLabel lblResponsvel = new JLabel("Valor de Venda");
-		lblResponsvel.setBounds(59, 140, 120, 14);
+		lblResponsvel.setBounds(59, 98, 120, 14);
 		add(lblResponsvel);
 		
 		valorVenda = new JTextField();
-		valorVenda.setBounds(185, 137, 179, 20);
+		valorVenda.setBounds(185, 95, 179, 20);
 		add(valorVenda);
 		valorVenda.setColumns(10);
 		
 		JLabel lblTipoLogradouro = new JLabel("Categoria");
-		lblTipoLogradouro.setBounds(59, 201, 89, 14);
+		lblTipoLogradouro.setBounds(59, 159, 89, 14);
 		add(lblTipoLogradouro);
 		
 		CategoriaDAO dao = new CategoriaDAO();
@@ -123,15 +130,15 @@ public class PecaPanel extends JLayeredPane {
 		}
 		
 		categoria = new JComboBox(mapCat.keySet().toArray());
-		categoria.setBounds(185, 196, 179, 20);
+		categoria.setBounds(185, 154, 179, 20);
 		add(categoria);
 		
 		JLabel lblLogradouro = new JLabel("Quantidade");
-		lblLogradouro.setBounds(59, 171, 77, 14);
+		lblLogradouro.setBounds(59, 129, 77, 14);
 		add(lblLogradouro);
 		
 		quantidade = new JTextField();
-		quantidade.setBounds(185, 168, 179, 20);
+		quantidade.setBounds(185, 126, 179, 20);
 		add(quantidade);
 		quantidade.setColumns(10);
 		
@@ -147,11 +154,11 @@ public class PecaPanel extends JLayeredPane {
 		}
 		
 		fabricante = new JComboBox(mapFab.keySet().toArray());
-		fabricante.setBounds(185, 227, 179, 20);
+		fabricante.setBounds(185, 185, 179, 20);
 		add(fabricante);
 		
 		JLabel lblFabricante = new JLabel("Fabricante");
-		lblFabricante.setBounds(59, 232, 89, 14);
+		lblFabricante.setBounds(59, 190, 89, 14);
 		add(lblFabricante);
 		
 		FornecedorDAO forDao = new FornecedorDAO();
@@ -186,15 +193,34 @@ public class PecaPanel extends JLayeredPane {
 		JButton btnNewButton = new JButton(">>");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("\n\n" + listAssociado.getSelectedValue().toString() + "\n\n");
+				associado.addElement(listNAssociado.getSelectedValue());
+				nAssociado.removeElement(listNAssociado.getSelectedValue());
 			}
 		});
 		btnNewButton.setBounds(199, 321, 89, 23);
 		add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("<<");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				nAssociado.addElement(listAssociado.getSelectedValue());
+				associado.removeElement(listAssociado.getSelectedValue());
+			}
+		});
 		btnNewButton_2.setBounds(199, 355, 89, 23);
 		add(btnNewButton_2);
+		
+		JLabel lblFornecedor = new JLabel("Fornecedor");
+		lblFornecedor.setBounds(59, 232, 89, 14);
+		add(lblFornecedor);
+		
+		JLabel lblNoAssociado = new JLabel("N\u00E3o Associado");
+		lblNoAssociado.setBounds(59, 265, 116, 14);
+		add(lblNoAssociado);
+		
+		JLabel lblAssociado = new JLabel("Associado");
+		lblAssociado.setBounds(309, 265, 116, 14);
+		add(lblAssociado);
 	}
 	
 	private boolean canSave() {

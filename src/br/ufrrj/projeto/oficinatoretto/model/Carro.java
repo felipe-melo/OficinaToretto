@@ -38,6 +38,8 @@ public class Carro implements IEntity{
 	@JoinColumn(name="clie_id")
 	private Cliente cliente;
 	
+	public Carro(){}
+	
 	public Carro(String modelo, String marca, Integer ano, String cor, String placa) {
 		this.modelo = modelo;
 		this.marca = marca;

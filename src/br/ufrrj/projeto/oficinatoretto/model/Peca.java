@@ -1,6 +1,7 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,17 +45,29 @@ public class Peca implements IEntity{
 	@JoinColumn(name="fabr_id")
 	private Fabricante fabricante;
 	
+	@ManyToMany
+	@JoinTable(
+		name="peca_fornecedor",
+		joinColumns=
+		@JoinColumn(name="peca_codigo"),
+		inverseJoinColumns=
+		@JoinColumn(name="forn_id")
+	)
+	private List<Fornecedor> fornecedores;
+	
 	public Peca() {
 		
 	}
 	
-	public Peca(String descricao, BigDecimal valorCompra, BigDecimal valorVenda, Integer quantidade, Categoria categoria, Fabricante fabricante) {
+	public Peca(String descricao, BigDecimal valorCompra, BigDecimal valorVenda, Integer quantidade, Categoria categoria, Fabricante fabricante,
+			List<Fornecedor> fornecedores) {
 		this.descricao = descricao;
 		this.valorCompra = valorCompra;
 		this.quantidade = quantidade;
 		this.valorVenda = valorVenda;
 		this.categoria = categoria;
 		this.fabricante = fabricante;
+		this.fornecedores = fornecedores;
 	}
 	
 	@Override
@@ -114,6 +129,14 @@ public class Peca implements IEntity{
 
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
+	}
+
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
 	}
 
 }
