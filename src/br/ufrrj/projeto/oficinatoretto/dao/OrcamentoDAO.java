@@ -35,22 +35,20 @@ public class OrcamentoDAO extends GenericDAO<Orcamento>{
 			.add(Restrictions.eq("orca_id", id)).uniqueResult();
 	}
 	
-	public List<Orcamento> searchOrcamento(Orcamento orcamento) {
+	public List<Orcamento> searchOrcamento(String cpf, String placa) {
 		Session session = (Session) getEntityManager().getDelegate();
 		
 		Criteria criteria = session.createCriteria(persistentClass);
         
-		if (orcamento != null && orcamento.getCarro() != null) {
-			criteria.createAlias("carro", "car");
-			if (orcamento.getCarro().getCliente() != null && !orcamento.getCarro().getCliente().getCpf().equals("")){
-				criteria.createAlias("car.cliente", "cli");
-				criteria.add(Restrictions.eq("cli.cpf", orcamento.getCarro().getCliente().getCpf()));
-			}
-			if (orcamento.getCarro().getPlaca() != null && !orcamento.getCarro().getPlaca().equals("")) {
-				criteria.add(Restrictions.eq("car.placa", orcamento.getCarro().getPlaca()));
-			}
-			criteria.add(Restrictions.eq("aprovado", false));
+		criteria.createAlias("carro", "car");
+		if (cpf != null && !cpf.equals("")){
+			criteria.createAlias("car.cliente", "cli");
+			criteria.add(Restrictions.eq("cli.cpf", cpf));
 		}
+		if (placa != null && !placa.equals("")) {
+			criteria.add(Restrictions.eq("car.placa", placa));
+		}
+		criteria.add(Restrictions.eq("aprovado", false));
         
         return (List<Orcamento>) criteria.list();
 	}

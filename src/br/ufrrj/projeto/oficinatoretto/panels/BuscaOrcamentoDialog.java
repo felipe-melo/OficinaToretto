@@ -14,8 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufrrj.projeto.oficinatoretto.dao.OrcamentoDAO;
-import br.ufrrj.projeto.oficinatoretto.model.Carro;
-import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 
 public class BuscaOrcamentoDialog extends JDialog {
@@ -83,22 +81,8 @@ public class BuscaOrcamentoDialog extends JDialog {
 		filtrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				OrcamentoDAO dao = new OrcamentoDAO();
-				Orcamento orc = new Orcamento();
-				Carro car = new Carro();
 				
-				if (!cpf.getText().equals("")) {
-					Cliente c = new Cliente();
-					c.setCpf(cpf.getText());
-					car.setCliente(c);
-				}
-				
-				if (!placa.getText().equals("")) {
-					car.setPlaca(placa.getText());
-				}
-				
-				orc.setCarro(car);
-				
-				BuscaOrcamentoDialog.this.orcamentos = dao.searchOrcamento(orc);
+				BuscaOrcamentoDialog.this.orcamentos = dao.searchOrcamento(cpf.getText(), placa.getText());
 				
 				for (Orcamento o: BuscaOrcamentoDialog.this.orcamentos) {
 					addOrcamento(o);
