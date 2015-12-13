@@ -24,11 +24,9 @@ public class Fabricante implements IEntity{
 	@Column(name="fabr_telefone")
 	private String telefone;
 	
-	public Fabricante() {
-		
-	}
+	Fabricante() {}
 	
-	public Fabricante(String nome, String telefone) {
+	Fabricante(String nome, String telefone) {
 		this.nome = nome;
 		this.telefone = telefone;
 	}

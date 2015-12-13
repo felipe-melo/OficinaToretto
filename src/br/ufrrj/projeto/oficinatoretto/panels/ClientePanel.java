@@ -16,11 +16,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.controller.ClienteController;
 import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
-import br.ufrrj.projeto.oficinatoretto.model.Cliente;
-import br.ufrrj.projeto.oficinatoretto.model.Endereco;
+import br.ufrrj.projeto.oficinatoretto.model.ClienteFacade;
 import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
@@ -47,7 +45,7 @@ public class ClientePanel extends JLayeredPane {
 	
 	private Map<String, Integer> map = new HashMap<String, Integer>();
 	
-	private Cliente cliente;
+	private ClienteFacade clienteFacade = new ClienteFacade();
 	
 	public ClientePanel() {
 		setLayout(null);
@@ -101,25 +99,14 @@ public class ClientePanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (ClientePanel.this.canSave()) {
-					ClienteController controller = new ClienteController();
 					try {
 						
-						TipoLogradouro tipo = new TipoLogradouro();
-						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
+						clienteFacade.registraDadosCliente(nome.getText(), cpf.getText(), telefone.getText());
 						
-						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
-								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
+						//clienteFacade.registraDadosEndereco(map.get(tipoLogradouro.getSelectedItem()), logradouro.getText(), numero.getText(), complemento.getText(),
+						//		bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
 						
-						if (cliente == null)
-							cliente = new Cliente(nome.getText(), cpf.getText(), telefone.getText(), endereco);
-						else{
-							cliente.setNome(nome.getText());
-							cliente.setCpf(cpf.getText());
-							cliente.setTelefone(telefone.getText());
-							cliente.setEndereco(endereco);
-						}
-						
-						controller.salvar(cliente);
+						clienteFacade.salvaCliente();
 						StaticMethods.showAlertMessage("Cliente salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -231,8 +218,7 @@ public class ClientePanel extends JLayeredPane {
 		obj[2] = carro.getAno();
 		obj[3] = carro.getPlaca();
 		aModel.addRow(obj);
-		if (cliente == null) this.cliente = new Cliente();
-		this.cliente.addCarro(carro);
+		this.clienteFacade.addCarroToCliente(carro);
 	}
 	
 	private boolean canSave(){
@@ -268,11 +254,6 @@ public class ClientePanel extends JLayeredPane {
 		}
 		
 		if (numero.getText().equals("")) {
-			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
-			return false;
-		}
-		
-		if (complemento.getText().equals("")) {
 			StaticMethods.showAlertMessage("O campo número deve ser preenchido");
 			return false;
 		}

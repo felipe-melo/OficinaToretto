@@ -1,6 +1,7 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -55,11 +56,9 @@ public class Peca implements IEntity{
 	)
 	private List<Fornecedor> fornecedores;
 	
-	public Peca() {
-		
-	}
+	Peca() {}
 	
-	public Peca(String descricao, BigDecimal valorCompra, BigDecimal valorVenda, Integer quantidade, Categoria categoria, Fabricante fabricante,
+	Peca(String descricao, BigDecimal valorCompra, BigDecimal valorVenda, Integer quantidade, Categoria categoria, Fabricante fabricante,
 			List<Fornecedor> fornecedores) {
 		this.descricao = descricao;
 		this.valorCompra = valorCompra;
@@ -137,6 +136,11 @@ public class Peca implements IEntity{
 
 	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
+	}
+	
+	public void addFornecedor(Fornecedor fornecedor) {
+		if (fornecedores == null) fornecedores = new ArrayList<Fornecedor>();
+		fornecedores.add(fornecedor);
 	}
 
 }

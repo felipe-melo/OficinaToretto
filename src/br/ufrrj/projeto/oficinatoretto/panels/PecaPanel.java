@@ -2,7 +2,6 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,14 +17,13 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import br.ufrrj.projeto.oficinatoretto.controller.PecaController;
 import br.ufrrj.projeto.oficinatoretto.dao.CategoriaDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.FabricanteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.FornecedorDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Categoria;
 import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
 import br.ufrrj.projeto.oficinatoretto.model.Fornecedor;
-import br.ufrrj.projeto.oficinatoretto.model.Peca;
+import br.ufrrj.projeto.oficinatoretto.model.PecaFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class PecaPanel extends JLayeredPane {
@@ -44,6 +42,8 @@ public class PecaPanel extends JLayeredPane {
 	private Map<String, Integer> mapFab = new HashMap<String, Integer>();
 	private Map<String, Integer> mapFor = new HashMap<String, Integer>();
 	
+	private PecaFacade pecaFacade = new PecaFacade();
+	
 	public PecaPanel() {
 		setLayout(null);
 		
@@ -55,30 +55,21 @@ public class PecaPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					PecaController controller = new PecaController();
+					PecaFacade controller = new PecaFacade();
 					try {
 						
-						Categoria cat = new Categoria();
-						cat.setIdCategoria(mapCat.get(categoria.getSelectedItem()));
-						
-						Fabricante fab = new Fabricante();
-						fab.setIdFabricante(mapFab.get(fabricante.getSelectedItem()));
-						
-						BigDecimal compra = new BigDecimal(valorCompra.getText());
-						BigDecimal venda = new BigDecimal(valorVenda.getText());
+						pecaFacade.registraCategoria(mapCat.get(categoria.getSelectedItem()));
+						pecaFacade.registraFabricante(mapFab.get(fabricante.getSelectedItem()));
 						
 						List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 						
 						for (int i = 0; i < associado.getSize(); i++) {
-							Fornecedor f = new Fornecedor();
-							f.setIdFornecedor(mapFor.get(associado.getElementAt(i)));
-							fornecedores.add(f);
+							pecaFacade.addFornecedor(mapFor.get(associado.getElementAt(i)));
 						}
 						
-						Peca peca = new Peca(descricao.getText(), compra, venda, new Integer(quantidade.getText()),
-								cat, fab, fornecedores);
+						pecaFacade.registraPeca(descricao.getText(), valorCompra.getText(), valorVenda.getText(), new Integer(quantidade.getText()));
 						
-						controller.salvar(peca);
+						pecaFacade.salvar();
 						StaticMethods.showAlertMessage("Peça salva com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

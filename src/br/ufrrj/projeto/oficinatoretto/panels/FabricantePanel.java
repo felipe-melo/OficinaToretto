@@ -11,8 +11,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import br.ufrrj.projeto.oficinatoretto.controller.FabricanteController;
-import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
+import br.ufrrj.projeto.oficinatoretto.model.FabricanteFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class FabricantePanel extends JLayeredPane {
@@ -20,6 +19,8 @@ public class FabricantePanel extends JLayeredPane {
 	private MaskFormatter mascara;
 	private JFormattedTextField telefone;
 	private JTextField nome;
+	
+	FabricanteFacade fabricanteFacade = new FabricanteFacade(); 
 	
 	public FabricantePanel() {
 		setLayout(null);
@@ -32,10 +33,9 @@ public class FabricantePanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					FabricanteController controller = new FabricanteController();
 					try {
-						Fabricante fabricante = new Fabricante(nome.getText(), telefone.getText());
-						controller.salvar(fabricante);
+						fabricanteFacade.regristraFabricante(nome.getText(), telefone.getText());
+						fabricanteFacade.salvar();
 						StaticMethods.showAlertMessage("Fabricante salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

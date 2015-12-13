@@ -40,9 +40,9 @@ public class Cliente implements IEntity {
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Carro> carros;
 	
-	public Cliente(){}
+	Cliente(){}
 	
-	public Cliente(String nome, String cpf, String telefone, Endereco endereco) {
+	Cliente(String nome, String cpf, String telefone, Endereco endereco) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;

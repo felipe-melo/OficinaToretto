@@ -1,19 +1,25 @@
-package br.ufrrj.projeto.oficinatoretto.controller;
+package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.ufrrj.projeto.oficinatoretto.dao.FabricanteDAO;
-import br.ufrrj.projeto.oficinatoretto.model.Fabricante;
 
-public class FabricanteController {
+public class FabricanteFacade {
+	
+	private Fabricante fabricante = new Fabricante();
+	
+	public void regristraFabricante(String nome, String telefone) {
+		fabricante.setNome(nome);
+		fabricante.setTelefone(telefone);
+	}
 
-    public void salvar(Fabricante fabricante) throws Exception {
+    public void salvar() throws Exception {
         new FabricanteDAO().salvar(fabricante);
     }
 
-    public void alterar(Fabricante fabricante) throws Exception {
+    public void alterar() throws Exception {
         new FabricanteDAO().alterar(fabricante);
     }
 
