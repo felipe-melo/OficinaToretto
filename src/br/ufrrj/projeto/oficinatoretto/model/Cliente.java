@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,6 +40,8 @@ public class Cliente implements IEntity {
 
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Carro> carros;
+	
+	public Cliente(){}
 	
 	public Cliente(String nome, String cpf, String telefone, Endereco endereco, List<Carro> carros) {
 		this.nome = nome;

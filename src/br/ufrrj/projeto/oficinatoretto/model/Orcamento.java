@@ -1,6 +1,5 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
-import java.security.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -49,16 +48,27 @@ public class Orcamento implements IEntity{
 	)
 	private List<Reparo> reparos;
 	
+	@ManyToMany
+	@JoinTable(
+		name="troca",
+		joinColumns=
+		@JoinColumn(name="orca_id"),
+		inverseJoinColumns=
+		@JoinColumn(name="peca_codigo")
+	)
+	private List<Peca> pecas;
+	
 	public Orcamento() {
 		
 	}
 	
-	public Orcamento(Date data, Carro carro, String comentario, Boolean aprovado, List<Reparo> reparos) {
+	public Orcamento(Date data, Carro carro, String comentario, Boolean aprovado, List<Reparo> reparos, List<Peca> pecas) {
 		this.data = data;
 		this.carro = carro;
 		this.comentario = comentario;
 		this.aprovado = aprovado;
 		this.reparos = reparos;
+		this.pecas = pecas;
 	}
 	
 	@Override
@@ -112,6 +122,14 @@ public class Orcamento implements IEntity{
 
 	public void setReparos(List<Reparo> reparos) {
 		this.reparos = reparos;
+	}
+	
+	public List<Peca> getPecas() {
+		return pecas;
+	}
+
+	public void setPecas(List<Peca> pecas) {
+		this.pecas = pecas;
 	}
 
 }

@@ -58,24 +58,24 @@ public class ClientePanel extends JLayeredPane {
 		nome.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(10, 44, 46, 14);
+		lblNome.setBounds(10, 47, 46, 14);
 		add(lblNome);
 		
 		JLabel lblCpf = new JLabel("CPF");
-		lblCpf.setBounds(10, 69, 46, 14);
+		lblCpf.setBounds(10, 78, 46, 14);
 		add(lblCpf);
 		
 		cpf = new JTextField();
-		cpf.setBounds(109, 69, 132, 20);
+		cpf.setBounds(109, 75, 132, 20);
 		add(cpf);
 		cpf.setColumns(10);
 		
 		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setBounds(10, 94, 46, 14);
+		lblTelefone.setBounds(10, 109, 46, 14);
 		add(lblTelefone);
 		
 		telefone = new JTextField();
-		telefone.setBounds(109, 94, 132, 20);
+		telefone.setBounds(109, 106, 132, 20);
 		add(telefone);
 		telefone.setColumns(10);
 		
@@ -128,7 +128,7 @@ public class ClientePanel extends JLayeredPane {
 		add(btnNewButton_1);
 		
 		JLabel lblTipoLogradouro = new JLabel("Tipo Logradouro");
-		lblTipoLogradouro.setBounds(10, 142, 89, 14);
+		lblTipoLogradouro.setBounds(10, 140, 89, 14);
 		add(lblTipoLogradouro);
 		
 		TipoLogradouroDAO dao = new TipoLogradouroDAO();
@@ -143,7 +143,7 @@ public class ClientePanel extends JLayeredPane {
 		}
 		
 		tipoLogradouro = new JComboBox(map.keySet().toArray());
-		tipoLogradouro.setBounds(109, 139, 132, 20);
+		tipoLogradouro.setBounds(109, 137, 132, 20);
 		add(tipoLogradouro);
 		
 		JLabel lblNmero = new JLabel("N\u00FAmero");
@@ -157,56 +157,56 @@ public class ClientePanel extends JLayeredPane {
 		
 		logradouro = new JTextField();
 		logradouro.setColumns(10);
-		logradouro.setBounds(109, 183, 132, 20);
+		logradouro.setBounds(109, 168, 132, 20);
 		add(logradouro);
 		
 		JLabel lblLogradouro = new JLabel("Logradouro");
-		lblLogradouro.setBounds(10, 186, 46, 14);
+		lblLogradouro.setBounds(10, 171, 89, 14);
 		add(lblLogradouro);
 		
 		JLabel lblComplemento = new JLabel("Complemento");
-		lblComplemento.setBounds(352, 72, 46, 14);
+		lblComplemento.setBounds(352, 78, 89, 14);
 		add(lblComplemento);
 		
 		complemento = new JTextField();
 		complemento.setColumns(10);
-		complemento.setBounds(451, 69, 132, 20);
+		complemento.setBounds(451, 75, 132, 20);
 		add(complemento);
 		
 		JLabel lblBairo = new JLabel("Bairro");
-		lblBairo.setBounds(352, 97, 46, 14);
+		lblBairo.setBounds(352, 109, 46, 14);
 		add(lblBairo);
 		
 		bairro = new JTextField();
 		bairro.setColumns(10);
-		bairro.setBounds(451, 94, 132, 20);
+		bairro.setBounds(451, 106, 132, 20);
 		add(bairro);
 		
 		JLabel lblCidade = new JLabel("Cidade");
-		lblCidade.setBounds(352, 125, 46, 14);
+		lblCidade.setBounds(352, 140, 46, 14);
 		add(lblCidade);
 		
 		cidade = new JTextField();
 		cidade.setColumns(10);
-		cidade.setBounds(451, 122, 132, 20);
+		cidade.setBounds(451, 137, 132, 20);
 		add(cidade);
 		
 		JLabel lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(352, 153, 46, 14);
+		lblEstado.setBounds(352, 171, 46, 14);
 		add(lblEstado);
 		
 		estado = new JTextField();
 		estado.setColumns(10);
-		estado.setBounds(451, 150, 132, 20);
+		estado.setBounds(451, 168, 132, 20);
 		add(estado);
 		
 		JLabel lblCep = new JLabel("CEP");
-		lblCep.setBounds(352, 186, 46, 14);
+		lblCep.setBounds(352, 202, 46, 14);
 		add(lblCep);
 		
 		cep = new JTextField();
 		cep.setColumns(10);
-		cep.setBounds(451, 183, 132, 20);
+		cep.setBounds(451, 199, 132, 20);
 		add(cep);
 		
 		aModel = new DefaultTableModel();

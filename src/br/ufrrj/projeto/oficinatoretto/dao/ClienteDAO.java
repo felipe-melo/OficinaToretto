@@ -29,7 +29,13 @@ public class ClienteDAO extends GenericDAO<Cliente>{
 	public Cliente findById(Integer id) {
 		Session session = (Session) getEntityManager().getDelegate();
         return (Cliente) session.createCriteria(persistentClass)
-			.add(Restrictions.eq("clie_id", id)).uniqueResult();
+			.add(Restrictions.eq("idCliente", id)).uniqueResult();
+	}
+	
+	public Cliente findByCpf(String cpf) {
+		Session session = (Session) getEntityManager().getDelegate();
+        return (Cliente) session.createCriteria(persistentClass)
+			.add(Restrictions.eq("cpf", cpf)).uniqueResult();
 	}
 
 }

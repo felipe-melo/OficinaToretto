@@ -12,6 +12,10 @@
     	<class>br.ufrrj.projeto.oficinatoretto.model.Cliente</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.Carro</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.Categoria</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Reparo</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Endereco</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Orcamento</class>
     	
 	    <properties>	
 	    	<property name="hibernate.connection.url" value="jdbc:postgresql://localhost/postgres"/>

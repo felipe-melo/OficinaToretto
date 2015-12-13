@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import br.ufrrj.projeto.oficinatoretto.model.IEntity;
 
@@ -77,12 +76,6 @@ public abstract class GenericDAO<T extends IEntity> {
     public List<T> findAll() throws Exception {
         Session session = (Session) getEntityManager().getDelegate();
         return session.createCriteria(persistentClass).list();
-    }
-
-    public T findByName(String nome) {
-        Session session = (Session) getEntityManager().getDelegate();
-        return (T) session.createCriteria(persistentClass)
-			.add(Restrictions.eq("nome", nome).ignoreCase()).uniqueResult();
     }
 
     public abstract T findById(Integer id);

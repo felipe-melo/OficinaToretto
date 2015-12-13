@@ -2,6 +2,7 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -20,9 +22,11 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JCalendar;
 
 import br.ufrrj.projeto.oficinatoretto.controller.OrcamentoController;
+import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.ReparoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
+import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
@@ -33,22 +37,34 @@ public class OrcamentoPanel extends JLayeredPane {
 	private JCalendar data;
 	private JTextArea comentario;
 	
+	private JLabel lblValor;
+	
 	private DefaultListModel nAssociadoReparo;
 	private DefaultListModel associadoReparo;
 	
 	private DefaultListModel nAssociadoPeca;
 	private DefaultListModel associadoPeca;
 	
-	private JTextField carro;
+	private JTextField cpf;
+	private JTextField placa;
 	
-	private Map<String, Integer> mapRep = new HashMap<String, Integer>();
-	private Map<String, Integer> mapPec = new HashMap<String, Integer>();
+	private Map<String, Reparo> mapRep = new HashMap<String, Reparo>();
+	private Map<String, Peca> mapPec = new HashMap<String, Peca>();
+	
+	private Carro carro;
+	private Orcamento orcamento;
+	
+	private JButton btnBuscar;
+	
+	private JCheckBox aprovado;
+	
+	private BigDecimal valor = new BigDecimal(0);
 	
 	public OrcamentoPanel() {
 		setLayout(null);
 		
 		JLabel lblNome = new JLabel("Coment\u00E1rio");
-		lblNome.setBounds(59, 100, 116, 14);
+		lblNome.setBounds(59, 128, 116, 14);
 		add(lblNome);
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
@@ -61,13 +77,27 @@ public class OrcamentoPanel extends JLayeredPane {
 						List<Reparo> reparos = new ArrayList<Reparo>();
 						
 						for (int i = 0; i < associadoReparo.getSize(); i++) {
-							Reparo r = new Reparo();
-							r.setIdReparo(mapRep.get(associadoReparo.getElementAt(i)));
-							reparos.add(r);
+							reparos.add(mapRep.get(associadoReparo.getElementAt(i)));
 						}
-						Carro carro = new Carro();
-						Orcamento orcamento = new Orcamento(data.getDate(), carro, comentario.getText(), false, reparos);
-						controller.salvar(orcamento);
+						
+						List<Peca> pecas = new ArrayList<Peca>();
+						
+						for (int i = 0; i < associadoPeca.getSize(); i++) {
+							pecas.add(mapPec.get(associadoPeca.getElementAt(i)));
+						}
+						if (orcamento == null) {
+							orcamento = new Orcamento(data.getDate(), carro, comentario.getText(), aprovado.isSelected(), reparos, pecas);
+							controller.salvar(orcamento);
+						} else {
+							orcamento.setData(data.getDate());
+							orcamento.setCarro(carro);
+							orcamento.setComentario(comentario.getText());
+							orcamento.setAprovado(aprovado.isSelected());
+							orcamento.setReparos(reparos);
+							orcamento.setPecas(pecas);
+							controller.alterar(orcamento);
+						}
+						
 						StaticMethods.showAlertMessage("Orçamento salva com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -87,7 +117,7 @@ public class OrcamentoPanel extends JLayeredPane {
 		lblNome_1.setBounds(59, 42, 89, 14);
 		add(lblNome_1);
 		
-		JLabel lblTipoLogradouro = new JLabel("Carro");
+		JLabel lblTipoLogradouro = new JLabel("CPF");
 		lblTipoLogradouro.setBounds(59, 72, 89, 14);
 		add(lblTipoLogradouro);
 		
@@ -105,7 +135,7 @@ public class OrcamentoPanel extends JLayeredPane {
 		try {
 			ArrayList<Reparo> lista = (ArrayList<Reparo>) repDao.findAll();
 			for (Reparo repa : lista) {
-				mapRep.put(repa.getDescricaoBreve(), repa.getIdReparo());
+				mapRep.put(repa.getDescricaoBreve(), repa);
 				nAssociadoReparo.addElement(repa.getDescricaoBreve());
 			}
 		} catch (Exception e1) {
@@ -123,8 +153,10 @@ public class OrcamentoPanel extends JLayeredPane {
 		JButton btnNewButton = new JButton(">>");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				valor = valor.add(mapRep.get(listNAssociado.getSelectedValue()).getValor());
 				associadoReparo.addElement(listNAssociado.getSelectedValue());
 				nAssociadoReparo.removeElement(listNAssociado.getSelectedValue());
+				lblValor.setText("Valor: " + valor);
 			}
 		});
 		btnNewButton.setBounds(172, 322, 49, 23);
@@ -133,8 +165,10 @@ public class OrcamentoPanel extends JLayeredPane {
 		JButton btnNewButton_2 = new JButton("<<");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				valor = valor.subtract(mapRep.get(listAssociado.getSelectedValue()).getValor());
 				nAssociadoReparo.addElement(listAssociado.getSelectedValue());
 				associadoReparo.removeElement(listAssociado.getSelectedValue());
+				lblValor.setText("Valor: " + valor);
 			}
 		});
 		btnNewButton_2.setBounds(172, 356, 49, 23);
@@ -153,17 +187,33 @@ public class OrcamentoPanel extends JLayeredPane {
 		add(lblAssociado);
 		
 		comentario = new JTextArea();
-		comentario.setBounds(185, 100, 270, 117);
+		comentario.setBounds(185, 128, 271, 69);
 		add(comentario);
 		
-		carro = new JTextField();
-		carro.setBounds(185, 69, 179, 20);
-		add(carro);
-		carro.setColumns(10);
+		cpf = new JTextField();
+		cpf.setBounds(185, 69, 179, 20);
+		add(cpf);
+		cpf.setColumns(10);
 		
-		JButton button = new JButton("+");
-		button.setBounds(366, 68, 41, 23);
-		add(button);
+		JButton btnSearch = new JButton("search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cpf.getText().equals("")) {
+					StaticMethods.showAlertMessage("Por favor preencha o cpf do cliente");
+				}else{
+					ClienteDAO dao = new ClienteDAO();
+					Cliente cliente = dao.findByCpf(cpf.getText());
+					if (cliente != null) {
+						BuscaCarroDialog buscaCarroDialog = new BuscaCarroDialog(OrcamentoPanel.this, cliente);
+						buscaCarroDialog.show();
+					}else{
+						StaticMethods.showAlertMessage("Cliente não encontrado");
+					}
+				}
+			}
+		});
+		btnSearch.setBounds(366, 68, 78, 23);
+		add(btnSearch);
 		
 		JLabel label = new JLabel("Associado");
 		label.setBounds(602, 266, 116, 14);
@@ -177,25 +227,33 @@ public class OrcamentoPanel extends JLayeredPane {
 		lblPeas.setBounds(386, 233, 89, 14);
 		add(lblPeas);
 		
-		JButton button_2 = new JButton("<<");
-		button_2.setBounds(526, 356, 49, 23);
-		add(button_2);
-		
 		nAssociadoPeca = new DefaultListModel();
 		associadoPeca = new DefaultListModel();
 		
 		JList listNAssociadoPeca = new JList();
-		listNAssociado .setModel(nAssociadoPeca);
+		listNAssociadoPeca.setModel(nAssociadoPeca);
 		
 		JList listAssociadoPeca  = new JList();
-		listAssociado.setModel(associadoPeca);
+		listAssociadoPeca.setModel(associadoPeca);
+		
+		JButton button_2 = new JButton("<<");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				valor = valor.subtract(mapPec.get(listAssociadoPeca.getSelectedValue()).getValorVenda());
+				nAssociadoPeca.addElement(listAssociadoPeca.getSelectedValue());
+				associadoPeca.removeElement(listAssociadoPeca.getSelectedValue());
+				lblValor.setText("Valor: " + valor);
+			}
+		});
+		button_2.setBounds(526, 356, 49, 23);
+		add(button_2);
 		
 		PecaDAO pecDao = new PecaDAO();
 		
 		try {
 			ArrayList<Peca> lista = (ArrayList<Peca>) pecDao.findAll();
 			for (Peca peca : lista) {
-				mapPec.put(peca.getDescricao(), peca.getIdPeca());
+				mapPec.put(peca.getDescricao(), peca);
 				nAssociadoPeca.addElement(peca.getDescricao());
 			}
 		} catch (Exception e1) {
@@ -213,16 +271,83 @@ public class OrcamentoPanel extends JLayeredPane {
 		JButton button_1 = new JButton(">>");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				valor = valor.add(mapPec.get(listNAssociadoPeca.getSelectedValue()).getValorVenda());
 				associadoPeca.addElement(listNAssociadoPeca.getSelectedValue());
 				nAssociadoPeca.removeElement(listNAssociadoPeca.getSelectedValue());
+				lblValor.setText("Valor: " + valor);
 			}
 		});
 		button_1.setBounds(526, 322, 49, 23);
 		add(button_1);
+		
+		JLabel lblPlaca = new JLabel("Placa");
+		lblPlaca.setBounds(59, 100, 89, 14);
+		add(lblPlaca);
+		
+		placa = new JTextField();
+		placa.setEditable(false);
+		placa.setColumns(10);
+		placa.setBounds(185, 97, 179, 20);
+		add(placa);
+		
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscaOrcamentoDialog dialog = new BuscaOrcamentoDialog(OrcamentoPanel.this);
+				dialog.show();
+			}
+		});
+		btnBuscar.setBounds(109, 472, 89, 23);
+		add(btnBuscar);
+		
+		aprovado = new JCheckBox("Aprovar");
+		aprovado.setBounds(185, 204, 97, 23);
+		add(aprovado);
+		
+		lblValor = new JLabel("Valor:");
+		lblValor.setBounds(602, 11, 116, 14);
+		add(lblValor);
+	}
+	
+	public void addCarro(Carro carro) {
+		this.carro = carro;
+		this.placa.setText(carro.getPlaca());
+	}
+	
+	public void addOrcamento(Orcamento orcamento) {
+		valor = new BigDecimal(0);
+		this.carro = orcamento.getCarro();
+		this.cpf.setText(this.carro.getCliente().getCpf());
+		this.placa.setText(this.carro.getPlaca());
+		this.data.setDate(orcamento.getData());
+		this.comentario.setText(orcamento.getComentario());
+		
+		for (Peca p : orcamento.getPecas()) {
+			associadoPeca.addElement(p);
+			nAssociadoPeca.removeElement(p.getDescricao());
+			associadoPeca.addElement(p.getDescricao());
+			valor = valor.add(p.getValorVenda());
+		}
+		
+		for (Reparo r : orcamento.getReparos()) {
+			associadoReparo.addElement(r.getDescricaoBreve());
+			nAssociadoReparo.removeElement(r.getDescricaoBreve());
+			valor = valor.add(r.getValor());
+		}
+		lblValor.setText("Valor: " + valor);
 	}
 	
 	private boolean canSave() {
+		if (this.placa.getText().equals("")) {
+			StaticMethods.showAlertMessage("Nenhum carro selecionado");
+			return false;
+		}
 		
+		if (this.comentario.getText().equals("")) {
+			StaticMethods.showAlertMessage("O campo comentário deve ser preenchido");
+			return false;
+		}
 		return true;
 	}
 }
