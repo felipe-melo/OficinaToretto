@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,22 +42,16 @@ public class Cliente implements IEntity {
 	
 	public Cliente(){}
 	
-	public Cliente(String nome, String cpf, String telefone, Endereco endereco, List<Carro> carros) {
+	public Cliente(String nome, String cpf, String telefone, Endereco endereco) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.endereco = endereco;
-		this.carros = carros;
 	}
 
 	@Override
 	public boolean isNew() {
 		return this.idCliente == null;
-	}
-	
-	public void addCarro(Carro carro) {
-		if (carros == null) carros = new ArrayList<>();
-		carros.add(carro);
 	}
 
 	public Integer getIdCliente() {
@@ -107,5 +100,10 @@ public class Cliente implements IEntity {
 
 	public void setCarros(List<Carro> carros) {
 		this.carros = carros;
+	}
+	
+	public void addCarro(Carro carro) {
+		if (this.carros == null) this.carros = new ArrayList<Carro>();
+		this.carros.add(carro);
 	}
 }

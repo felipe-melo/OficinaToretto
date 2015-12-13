@@ -75,7 +75,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 		button_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			}
 		});
 		button_1.setBounds(189, 251, 72, 23);
@@ -97,7 +97,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 			try {
 				String pass = new String (this.password.getPassword());
 				Usuario usuario = controller.login(this.login.getText(), pass); 
-				setVisible(false);
+				dispose();
 		        new MainWindow(usuario).setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();

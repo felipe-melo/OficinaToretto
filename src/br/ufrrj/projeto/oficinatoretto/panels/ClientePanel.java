@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -40,7 +39,6 @@ public class ClientePanel extends JLayeredPane {
 	
 	private JComboBox tipoLogradouro;
 	
-	private List<Carro> carros;
 	private JScrollPane scrollPane;
 	
 	private DefaultTableModel aModel;
@@ -48,6 +46,8 @@ public class ClientePanel extends JLayeredPane {
 	private String[] columnNames = {"Marca", "Modelo", "Ano", "Placa"};
 	
 	private Map<String, Integer> map = new HashMap<String, Integer>();
+	
+	private Cliente cliente;
 	
 	public ClientePanel() {
 		setLayout(null);
@@ -106,13 +106,17 @@ public class ClientePanel extends JLayeredPane {
 						
 						TipoLogradouro tipo = new TipoLogradouro();
 						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
+						
 						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
 								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
 						
-						Cliente cliente = new Cliente(nome.getText(), cpf.getText(), telefone.getText(), endereco, ClientePanel.this.carros);
-						
-						for (Carro car : ClientePanel.this.carros) {
-							car.setCliente(cliente);
+						if (cliente == null)
+							cliente = new Cliente(nome.getText(), cpf.getText(), telefone.getText(), endereco);
+						else{
+							cliente.setNome(nome.getText());
+							cliente.setCpf(cpf.getText());
+							cliente.setTelefone(telefone.getText());
+							cliente.setEndereco(endereco);
 						}
 						
 						controller.salvar(cliente);
@@ -221,14 +225,14 @@ public class ClientePanel extends JLayeredPane {
 	}
 	
 	public void addCarroToCliente(Carro carro) {
-		if (this.carros == null) this.carros = new ArrayList<Carro>();
 		Object[] obj = new Object[4];
 		obj[0] = carro.getMarca();
 		obj[1] = carro.getModelo();
 		obj[2] = carro.getAno();
 		obj[3] = carro.getPlaca();
 		aModel.addRow(obj);
-		this.carros.add(carro);
+		if (cliente == null) this.cliente = new Cliente();
+		this.cliente.addCarro(carro);
 	}
 	
 	private boolean canSave(){

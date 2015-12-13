@@ -38,7 +38,7 @@ public class UsuarioController {
         try {
             return dao.findAll();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Problemas ao localizar usuarion" + e.getLocalizedMessage());
+            JOptionPane.showMessageDialog(null, "Problemas ao localizar usuario " + e.getLocalizedMessage());
         }
         return null;
     }

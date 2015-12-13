@@ -49,6 +49,7 @@ public class OrcamentoDAO extends GenericDAO<Orcamento>{
 			if (orcamento.getCarro().getPlaca() != null && !orcamento.getCarro().getPlaca().equals("")) {
 				criteria.add(Restrictions.eq("car.placa", orcamento.getCarro().getPlaca()));
 			}
+			criteria.add(Restrictions.eq("aprovado", false));
 		}
         
         return (List<Orcamento>) criteria.list();
