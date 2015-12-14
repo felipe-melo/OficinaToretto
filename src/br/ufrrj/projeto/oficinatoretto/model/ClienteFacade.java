@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
+import br.ufrrj.projeto.oficinatoretto.panels.BuscaClienteDialog;
 
 public class ClienteFacade {
 	
@@ -44,6 +45,15 @@ public class ClienteFacade {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar cliente" + e.getLocalizedMessage());
         }
         return null;
+    }
+    
+    public void findCliente(String cpf){
+    	ClienteDAO dao = new ClienteDAO();
+    	this.cliente = dao.searchClienteByCPF(cpf);
+    }
+    
+    public Cliente retornaCliente(){
+    	return this.cliente;
     }
 
     public void excluir(Integer id) throws Exception {

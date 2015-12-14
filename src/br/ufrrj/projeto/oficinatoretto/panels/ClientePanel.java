@@ -3,6 +3,7 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +17,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
+import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 import br.ufrrj.projeto.oficinatoretto.model.ClienteFacade;
+import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
+import br.ufrrj.projeto.oficinatoretto.model.Peca;
+import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
@@ -94,6 +100,17 @@ public class ClientePanel extends JLayeredPane {
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.setBounds(122, 472, 89, 23);
 		add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+					BuscaClienteDialog buscaClienteDialog = new BuscaClienteDialog(ClientePanel.this, clienteFacade);
+					buscaClienteDialog.show();
+			}	
+		});
+			
+		
+		
+		
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -279,5 +296,19 @@ public class ClientePanel extends JLayeredPane {
 		}
 		
 		return true;
+	}
+	
+	public void preencherTela(){
+		
+		Cliente cli = this.clienteFacade.retornaCliente();
+		
+		if(cli != null){
+			this.cpf.setText(cli.getCpf());
+			this.nome.setText(cli.getNome());
+			this.telefone.setText(cli.getTelefone());
+		}
+		else{
+			StaticMethods.showAlertMessage("O cliente não existe");
+		}
 	}
 }
