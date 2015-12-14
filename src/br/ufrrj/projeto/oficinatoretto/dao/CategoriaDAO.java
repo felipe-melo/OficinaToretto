@@ -7,13 +7,8 @@ import br.ufrrj.projeto.oficinatoretto.model.Categoria;
 
 public class CategoriaDAO extends GenericDAO<Categoria>{
 	
-	public void salvar(Categoria categoria) {
-        try {
-			save(categoria);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Não foi possível salvar o categoria.");
-		}
+	public void salvar(Categoria categoria) throws Exception{
+		save(categoria);
     }
 
     public void alterar(Categoria categoria) {

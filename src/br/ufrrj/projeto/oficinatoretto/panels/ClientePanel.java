@@ -211,14 +211,14 @@ public class ClientePanel extends JLayeredPane {
 		add(scrollPane, BorderLayout.CENTER);
 	}
 	
-	public void addCarroToCliente(Carro carro) {
+	public void addCarroToCliente(String marca, String modelo, String ano, String cor, String placa) {
 		Object[] obj = new Object[4];
-		obj[0] = carro.getMarca();
-		obj[1] = carro.getModelo();
-		obj[2] = carro.getAno();
-		obj[3] = carro.getPlaca();
+		obj[0] = marca;
+		obj[1] = modelo;
+		obj[2] = ano;
+		obj[3] = placa;
 		aModel.addRow(obj);
-		this.clienteFacade.addCarroToCliente(carro);
+		this.clienteFacade.registraCarro(marca, modelo, new Integer(ano), cor, placa);
 	}
 	
 	private boolean canSave(){

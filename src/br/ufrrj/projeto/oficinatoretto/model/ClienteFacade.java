@@ -24,12 +24,18 @@ public class ClienteFacade {
     	cliente.setEndereco(endereco);
     }
     
+    public void registraCarro(String modelo, String marca, Integer ano, String cor, String placa) {
+    	Carro carro = new Carro();
+		carro.setModelo(modelo);
+		carro.setMarca(marca);
+		carro.setAno(ano);
+		carro.setCor(cor);
+		carro.setPlaca(placa);
+		cliente.addCarro(carro);
+	}
+    
     public void salvaCliente() {
 		new ClienteDAO().salvar(cliente);
-    }
-    
-    public void addCarroToCliente(Carro carro) {
-    	cliente.addCarro(carro);
     }
 
     public void alterar(Cliente cliente) throws Exception {
