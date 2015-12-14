@@ -103,8 +103,8 @@ public class ClientePanel extends JLayeredPane {
 						
 						clienteFacade.registraDadosCliente(nome.getText(), cpf.getText(), telefone.getText());
 						
-						//clienteFacade.registraDadosEndereco(map.get(tipoLogradouro.getSelectedItem()), logradouro.getText(), numero.getText(), complemento.getText(),
-						//		bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
+						clienteFacade.registraDadosEndereco(map.get(tipoLogradouro.getSelectedItem()), logradouro.getText(), numero.getText(), complemento.getText(),
+								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
 						
 						clienteFacade.salvaCliente();
 						StaticMethods.showAlertMessage("Cliente salvo com sucesso");

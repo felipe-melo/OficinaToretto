@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.ufrrj.projeto.oficinatoretto.dao.OrcamentoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
+import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class BuscaOrcamentoDialog extends JDialog {
 	private JTextField cpf;
@@ -70,8 +71,12 @@ public class BuscaOrcamentoDialog extends JDialog {
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pane.addOrcamento(orcamentos.get(table.getSelectedRow()));
-				dispose();
+				if (table.getSelectedRow() < 0){
+					StaticMethods.showAlertMessage("Selecione algum orçamento");
+				}else{
+					pane.addOrcamento(orcamentos.get(table.getSelectedRow()));
+					dispose();
+				}
 			}
 		});
 		btnSelecionar.setBounds(21, 265, 89, 23);

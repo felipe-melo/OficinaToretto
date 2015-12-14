@@ -80,7 +80,7 @@ public abstract class GenericDAO<T extends IEntity> {
 
     public abstract T findById(Integer id);
 
-    private void close() {
+    protected void close() {
         if (getEntityManager().isOpen()) {
             getEntityManager().close();
         }
