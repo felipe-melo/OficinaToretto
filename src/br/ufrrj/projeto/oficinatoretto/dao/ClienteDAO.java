@@ -1,9 +1,13 @@
 package br.ufrrj.projeto.oficinatoretto.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.ufrrj.projeto.oficinatoretto.model.Cliente;
+import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 
 public class ClienteDAO extends GenericDAO<Cliente>{
 	
@@ -18,6 +22,18 @@ public class ClienteDAO extends GenericDAO<Cliente>{
 
     public void alterar(Cliente cliente) {
         update(cliente);
+    }
+    
+    public Cliente searchClienteByCPF(String cpf){
+    	Session session = (Session) getEntityManager().getDelegate();
+		
+		Criteria criteria = session.createCriteria(persistentClass);
+        
+		if (cpf != null && !cpf.equals("")){
+			criteria.add(Restrictions.eq("cpf", cpf));
+		}
+		
+        return (Cliente) criteria.uniqueResult();
     }
 
     public void excluir(Integer id) {
@@ -34,8 +50,7 @@ public class ClienteDAO extends GenericDAO<Cliente>{
 	
 	public Cliente findByCpf(String cpf) {
 		Session session = (Session) getEntityManager().getDelegate();
-        return (Cliente) session.createCriteria(persistentClass)
-			.add(Restrictions.eq("cpf", cpf)).uniqueResult();
+        return (Cliente) session.createCriteria(persistentClass).add(Restrictions.eq("cpf", cpf)).uniqueResult();
 	}
 
 }
