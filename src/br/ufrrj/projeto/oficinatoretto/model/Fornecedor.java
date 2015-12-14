@@ -19,14 +19,7 @@ public class Fornecedor implements IEntity{
 	
 	private static final long serialVersionUID = 4790716137162703694L;
 	
-	public Fornecedor(String nome, String telefone, String responsavel, Endereco endereco) {
-		this.nome = nome;
-		this.telefone = telefone;
-		this.responsavel = responsavel;
-		this.endereco = endereco;
-	}
-	
-	public Fornecedor(){}
+	Fornecedor(){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

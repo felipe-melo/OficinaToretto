@@ -27,12 +27,7 @@ public class Categoria implements IEntity{
 	@JoinColumn(name="cate_super_id")
 	private Categoria categoria ;
 	
-	public Categoria() {
-	}
-	
-	public Categoria(String nome, Categoria categoria) {
-		this.nome = nome;
-		this.categoria = categoria;
+	Categoria() {
 	}
 	
 	@Override

@@ -15,10 +15,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import br.ufrrj.projeto.oficinatoretto.controller.FornecedorController;
 import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Endereco;
 import br.ufrrj.projeto.oficinatoretto.model.Fornecedor;
+import br.ufrrj.projeto.oficinatoretto.model.FornecedorFacade;
 import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
@@ -39,6 +39,8 @@ public class FornecedorPanel extends JLayeredPane {
 	
 	private Map<String, Integer> map = new HashMap<String, Integer>();
 	
+	private FornecedorFacade fornecedorFacade = new FornecedorFacade();
+	
 	public FornecedorPanel() {
 		setLayout(null);
 		
@@ -50,17 +52,13 @@ public class FornecedorPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					FornecedorController controller = new FornecedorController();
 					try {
 						
-						TipoLogradouro tipo = new TipoLogradouro();
-						tipo.setIdTipoLogradouro(map.get(tipoLogradouro.getSelectedItem()));
-						Endereco endereco = new Endereco(tipo, logradouro.getText(), numero.getText(), complemento.getText(),
+						fornecedorFacade.registraDadosEndereco(map.get(tipoLogradouro.getSelectedItem()), logradouro.getText(), numero.getText(), complemento.getText(),
 								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
+						fornecedorFacade.registraDadosFornecedor(nome.getText(), telefone.getText(), responsavel.getText());
+						fornecedorFacade.salvar();
 						
-						Fornecedor fornecedor = new Fornecedor(nome.getText(), telefone.getText(), responsavel.getText(), endereco);
-						
-						controller.salvar(fornecedor);
 						StaticMethods.showAlertMessage("Fornecedor salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

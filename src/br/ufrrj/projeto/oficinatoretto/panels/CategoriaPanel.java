@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
-import br.ufrrj.projeto.oficinatoretto.controller.CategoriaController;
 import br.ufrrj.projeto.oficinatoretto.dao.CategoriaDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Categoria;
+import br.ufrrj.projeto.oficinatoretto.model.CategoriaFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class CategoriaPanel extends JLayeredPane {
@@ -22,6 +22,8 @@ public class CategoriaPanel extends JLayeredPane {
 	private JTextField nome;
 	
 	JComboBox superCategoria;
+	
+	CategoriaFacade categoriaFacade = new CategoriaFacade();
 	
 	private Map<String, Integer> map = new HashMap<String, Integer>();
 	
@@ -36,15 +38,9 @@ public class CategoriaPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					CategoriaController controller = new CategoriaController();
 					try {
-						Categoria cat = null;
-						if (map.get(superCategoria.getSelectedItem()) != null) {
-							cat = new Categoria(null, null);
-							cat.setIdCategoria(map.get(superCategoria.getSelectedItem()));
-						}
-						Categoria fabricante = new Categoria(nome.getText(), cat);
-						controller.salvar(fabricante);
+						categoriaFacade.registraCategoria(nome.getText(), map.get(superCategoria.getSelectedItem()));
+						categoriaFacade.salvar();
 						StaticMethods.showAlertMessage("Categoria salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

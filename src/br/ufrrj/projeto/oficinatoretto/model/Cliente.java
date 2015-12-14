@@ -41,13 +41,6 @@ public class Cliente implements IEntity {
 	private List<Carro> carros;
 	
 	Cliente(){}
-	
-	Cliente(String nome, String cpf, String telefone, Endereco endereco) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.telefone = telefone;
-		this.endereco = endereco;
-	}
 
 	@Override
 	public boolean isNew() {

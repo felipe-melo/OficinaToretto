@@ -1,15 +1,22 @@
-package br.ufrrj.projeto.oficinatoretto.controller;
+package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import br.ufrrj.projeto.oficinatoretto.dao.CategoriaDAO;
-import br.ufrrj.projeto.oficinatoretto.model.Categoria;
 
-public class CategoriaController {
+public class CategoriaFacade {
+	
+	private Categoria categoria = new Categoria();
+	
+	public void registraCategoria(String nome, Integer superCategoria) {
+		Categoria superCat = new Categoria();
+		categoria.setNome(nome);
+		categoria.setCategoria(superCat);
+	}
 
-    public void salvar(Categoria categoria) throws Exception {
+    public void salvar() throws Exception {
         new CategoriaDAO().salvar(categoria);
     }
 
