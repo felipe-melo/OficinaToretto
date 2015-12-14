@@ -1,4 +1,4 @@
-package br.ufrrj.projeto.oficinatoretto.controller;
+package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import br.ufrrj.projeto.oficinatoretto.dao.ReparoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 
-public class ReparoController {
+public class ReparoFacade {
 
     public void salvar(Reparo reparo) throws Exception {
         new ReparoDAO().salvar(reparo);

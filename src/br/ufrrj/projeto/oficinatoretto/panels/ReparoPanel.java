@@ -9,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
-import br.ufrrj.projeto.oficinatoretto.controller.ReparoController;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
+import br.ufrrj.projeto.oficinatoretto.model.ReparoFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class ReparoPanel extends JLayeredPane {
@@ -27,7 +27,7 @@ public class ReparoPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					ReparoController controller = new ReparoController();
+					ReparoFacade controller = new ReparoFacade();
 					try {
 						
 						BigDecimal valorBig = new BigDecimal(valor.getText());

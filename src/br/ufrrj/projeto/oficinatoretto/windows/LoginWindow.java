@@ -12,8 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import br.ufrrj.projeto.oficinatoretto.controller.UsuarioController;
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
+import br.ufrrj.projeto.oficinatoretto.model.UsuarioFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class LoginWindow extends JFrame implements ActionListener {
@@ -96,7 +96,7 @@ public class LoginWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (this.canLogin()) {
-			UsuarioController controller = new UsuarioController();
+			UsuarioFacade controller = new UsuarioFacade();
 			try {
 				String pass = new String (this.password.getPassword());
 				Usuario usuario = controller.login(this.login.getText(), pass); 
