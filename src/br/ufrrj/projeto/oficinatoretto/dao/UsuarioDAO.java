@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 
-public class UsuarioDAO extends GenericDAO<Usuario>{
+public class UsuarioDAO extends GenericDAO<Usuario> {
 	
 	public Usuario login(String userName, String password) throws IllegalArgumentException {
 		Query query = entityManager.createQuery("SELECT u from Usuario u WHERE u.userName = :user and u.password = :pwd");

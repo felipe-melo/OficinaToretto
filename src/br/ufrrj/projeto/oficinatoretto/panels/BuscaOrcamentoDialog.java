@@ -2,7 +2,6 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -13,11 +12,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.dao.OrcamentoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
+import br.ufrrj.projeto.oficinatoretto.model.OrcamentoFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class BuscaOrcamentoDialog extends JDialog {
+
 	private JTextField cpf;
 	private JTextField placa;
 	
@@ -26,12 +26,12 @@ public class BuscaOrcamentoDialog extends JDialog {
 	
 	private String[] columnNames = {"Data", "CPF", "Placa", "Marca"};
 	
-	private List<Orcamento> orcamentos = new ArrayList<Orcamento>();
-
+	private List<Orcamento> lista;
+	
 	/**
 	 * Create the dialog.
 	 */
-	public BuscaOrcamentoDialog(OrcamentoPanel pane) {
+	public BuscaOrcamentoDialog(OrcamentoPanel pane, OrcamentoFacade orcamentoFacade) {
 		
 		setBounds(100, 100, 589, 341);
 		getContentPane().setLayout(null);
@@ -74,7 +74,7 @@ public class BuscaOrcamentoDialog extends JDialog {
 				if (table.getSelectedRow() < 0){
 					StaticMethods.showAlertMessage("Selecione algum orçamento");
 				}else{
-					pane.addOrcamento(orcamentos.get(table.getSelectedRow()));
+					pane.addOrcamento(lista.get(table.getSelectedRow()));
 					dispose();
 				}
 			}
@@ -85,11 +85,10 @@ public class BuscaOrcamentoDialog extends JDialog {
 		JButton filtrar = new JButton("Filtrar");
 		filtrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				OrcamentoDAO dao = new OrcamentoDAO();
 				
-				BuscaOrcamentoDialog.this.orcamentos = dao.searchOrcamento(cpf.getText(), placa.getText());
+				lista = orcamentoFacade.searchOrcamento(cpf.getText(), placa.getText());
 				
-				for (Orcamento o: BuscaOrcamentoDialog.this.orcamentos) {
+				for (Orcamento o: lista) {
 					addOrcamento(o);
 				}
 			}

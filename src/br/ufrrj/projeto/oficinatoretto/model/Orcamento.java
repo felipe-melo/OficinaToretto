@@ -58,18 +58,7 @@ public class Orcamento implements IEntity{
 	)
 	private List<Peca> pecas;
 	
-	public Orcamento() {
-		
-	}
-	
-	public Orcamento(Date data, Carro carro, String comentario, Boolean aprovado, List<Reparo> reparos, List<Peca> pecas) {
-		this.data = data;
-		this.carro = carro;
-		this.comentario = comentario;
-		this.aprovado = aprovado;
-		this.reparos = reparos;
-		this.pecas = pecas;
-	}
+	Orcamento() {}
 	
 	@Override
 	public boolean isNew() {

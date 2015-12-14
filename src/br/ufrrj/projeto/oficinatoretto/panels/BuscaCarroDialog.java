@@ -43,8 +43,6 @@ public class BuscaCarroDialog extends JDialog {
 	 */
 	public BuscaCarroDialog(OrcamentoPanel pane, Cliente cliente) {
 		
-		ClienteDAO dao = new ClienteDAO();
-		
 		setBounds(100, 100, 632, 488);
 		getContentPane().setLayout(null);
 		

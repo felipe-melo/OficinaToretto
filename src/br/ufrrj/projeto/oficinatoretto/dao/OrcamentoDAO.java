@@ -41,7 +41,7 @@ public class OrcamentoDAO extends GenericDAO<Orcamento>{
 		Criteria criteria = session.createCriteria(persistentClass);
         
 		criteria.createAlias("carro", "car");
-		if (cpf != null && !cpf.equals("")){
+		if (cpf != null && !cpf.equals("")) {
 			criteria.createAlias("car.cliente", "cli");
 			criteria.add(Restrictions.eq("cli.cpf", cpf));
 		}
@@ -49,7 +49,7 @@ public class OrcamentoDAO extends GenericDAO<Orcamento>{
 			criteria.add(Restrictions.eq("car.placa", placa));
 		}
 		criteria.add(Restrictions.eq("aprovado", false));
-        
+        System.out.println("size: " + criteria.list().size());
         return (List<Orcamento>) criteria.list();
 	}
 

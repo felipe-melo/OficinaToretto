@@ -21,13 +21,12 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JCalendar;
 
-import br.ufrrj.projeto.oficinatoretto.controller.OrcamentoController;
 import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
-import br.ufrrj.projeto.oficinatoretto.dao.ReparoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
+import br.ufrrj.projeto.oficinatoretto.model.OrcamentoFacade;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
@@ -51,14 +50,13 @@ public class OrcamentoPanel extends JLayeredPane {
 	private Map<String, Reparo> mapRep = new HashMap<String, Reparo>();
 	private Map<String, Peca> mapPec = new HashMap<String, Peca>();
 	
-	private Carro carro;
-	private Orcamento orcamento;
-	
 	private JButton btnBuscar;
 	
 	private JCheckBox aprovado;
 	
 	private BigDecimal valor = new BigDecimal(0);
+	
+	private OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 	
 	public OrcamentoPanel() {
 		setLayout(null);
@@ -71,7 +69,6 @@ public class OrcamentoPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					OrcamentoController controller = new OrcamentoController();
 					try {
 						
 						List<Reparo> reparos = new ArrayList<Reparo>();
@@ -85,18 +82,11 @@ public class OrcamentoPanel extends JLayeredPane {
 						for (int i = 0; i < associadoPeca.getSize(); i++) {
 							pecas.add(mapPec.get(associadoPeca.getElementAt(i)));
 						}
-						if (orcamento == null) {
-							orcamento = new Orcamento(data.getDate(), carro, comentario.getText(), aprovado.isSelected(), reparos, pecas);
-							controller.salvar(orcamento);
-						} else {
-							orcamento.setData(data.getDate());
-							orcamento.setCarro(carro);
-							orcamento.setComentario(comentario.getText());
-							orcamento.setAprovado(aprovado.isSelected());
-							orcamento.setReparos(reparos);
-							orcamento.setPecas(pecas);
-							controller.alterar(orcamento);
-						}
+						
+						orcamentoFacade.registraOrcamento(data.getDate(), comentario.getText(), aprovado.isSelected());
+						
+						orcamentoFacade.registraReparos(reparos);
+						orcamentoFacade.registraPecas(pecas);
 						
 						StaticMethods.showAlertMessage("Orçamento salva com sucesso");
 					} catch (Exception e1) {
@@ -130,10 +120,8 @@ public class OrcamentoPanel extends JLayeredPane {
 		JList listAssociado  = new JList();
 		listAssociado.setModel(associadoReparo);
 		
-		ReparoDAO repDao = new ReparoDAO();
-		
 		try {
-			ArrayList<Reparo> lista = (ArrayList<Reparo>) repDao.findAll();
+			ArrayList<Reparo> lista = (ArrayList<Reparo>) orcamentoFacade.recuperaReparos();
 			for (Reparo repa : lista) {
 				mapRep.put(repa.getDescricaoBreve(), repa);
 				nAssociadoReparo.addElement(repa.getDescricaoBreve());
@@ -294,7 +282,7 @@ public class OrcamentoPanel extends JLayeredPane {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				BuscaOrcamentoDialog dialog = new BuscaOrcamentoDialog(OrcamentoPanel.this);
+				BuscaOrcamentoDialog dialog = new BuscaOrcamentoDialog(OrcamentoPanel.this, orcamentoFacade);
 				dialog.show();
 			}
 		});
@@ -311,15 +299,15 @@ public class OrcamentoPanel extends JLayeredPane {
 	}
 	
 	public void addCarro(Carro carro) {
-		this.carro = carro;
 		this.placa.setText(carro.getPlaca());
+		orcamentoFacade.registraCarro(carro);
 	}
 	
 	public void addOrcamento(Orcamento orcamento) {
 		valor = new BigDecimal(0);
-		this.carro = orcamento.getCarro();
-		this.cpf.setText(this.carro.getCliente().getCpf());
-		this.placa.setText(this.carro.getPlaca());
+		Carro carro = orcamento.getCarro();
+		this.cpf.setText(carro.getCliente().getCpf());
+		this.placa.setText(carro.getPlaca());
 		this.data.setDate(orcamento.getData());
 		this.comentario.setText(orcamento.getComentario());
 		
