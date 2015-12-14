@@ -35,7 +35,6 @@ public class Cliente implements IEntity {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="ende_id")
 	private Endereco endereco;
-	
 
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Carro> carros;

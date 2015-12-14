@@ -44,7 +44,7 @@ public class CategoriaPanel extends JLayeredPane {
 						StaticMethods.showAlertMessage("Categoria salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();
-						StaticMethods.showAlertMessage(e1.getMessage());
+						StaticMethods.showAlertMessage("Erro ao salvar categoria");
 					}
 				}
 			}
