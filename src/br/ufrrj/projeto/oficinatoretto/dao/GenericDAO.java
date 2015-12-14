@@ -1,6 +1,7 @@
 package br.ufrrj.projeto.oficinatoretto.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -74,8 +75,9 @@ public abstract class GenericDAO<T extends IEntity> {
     }
 
     public List<T> findAll() throws Exception {
-        Session session = (Session) getEntityManager().getDelegate();
-        return session.createCriteria(persistentClass).list();
+    	Session session = (Session) getEntityManager().getDelegate();
+    	ArrayList<T> result = (ArrayList<T>) session.createCriteria(persistentClass).list();
+    	return result;
     }
 
     public abstract T findById(Integer id);

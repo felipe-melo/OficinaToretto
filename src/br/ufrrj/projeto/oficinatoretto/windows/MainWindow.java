@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import br.ufrrj.projeto.oficinatoretto.model.Gerente;
+import br.ufrrj.projeto.oficinatoretto.model.Mecanico;
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 import br.ufrrj.projeto.oficinatoretto.panels.CategoriaPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.ClientePanel;
@@ -22,6 +24,8 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow(Usuario usuario) {
+		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -36,17 +40,23 @@ public class MainWindow extends JFrame {
 		ClientePanel clientePanel = new ClientePanel();
 		tabbedPane.addTab("Cliente", null, clientePanel, null);
 		
-		FabricantePanel fabricantePanel = new FabricantePanel();
-		tabbedPane.addTab("Fabricante", null, fabricantePanel, null);
-		
-		FornecedorPanel fornecedorPanel = new FornecedorPanel();
-		tabbedPane.addTab("Fornecedor", null, fornecedorPanel, null);
+		if (usuario instanceof Gerente) {
+			FabricantePanel fabricantePanel = new FabricantePanel();
+			tabbedPane.addTab("Fabricante", null, fabricantePanel, null);
+		}
+		if (usuario instanceof Gerente) {
+
+			FornecedorPanel fornecedorPanel = new FornecedorPanel();
+			tabbedPane.addTab("Fornecedor", null, fornecedorPanel, null);
+		}
 		
 		CategoriaPanel categoriaPanel = new CategoriaPanel();
 		tabbedPane.addTab("Categoria", null, categoriaPanel, null);
 		
-		PecaPanel pecaPanel = new PecaPanel();
-		tabbedPane.addTab("Peça", null, pecaPanel, null);
+		if (usuario instanceof Gerente) {
+			PecaPanel pecaPanel = new PecaPanel();
+			tabbedPane.addTab("Peça", null, pecaPanel, null);
+		}
 		
 		ReparoPanel reparoPanel = new ReparoPanel();
 		tabbedPane.addTab("Reparo", null, reparoPanel, null);
