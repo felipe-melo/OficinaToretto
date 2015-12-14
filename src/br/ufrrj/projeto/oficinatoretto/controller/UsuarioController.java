@@ -14,24 +14,24 @@ public class UsuarioController {
         return dao.login(userName, password);
 	}
 
-    public void salvar(String userName, String password, String nome) throws Exception {
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
-        usuario.setUserName(userName);
-        usuario.setPassword(password);
-
-        new UsuarioDAO().salvar(usuario);
-    }
-
-    public void alterar(Integer id, String userName, String password, String nome) throws Exception {
-        Usuario usuario = new Usuario();
-        usuario.setIdUsuario(id);
-        usuario.setUserName(userName);
-        usuario.setPassword(password);
-        usuario.setNome(nome);
-
-        new UsuarioDAO().alterar(usuario);
-    }
+//    public void salvar(String userName, String password, String nome) throws Exception {
+//        Usuario usuario = new Usuario();
+//        usuario.setNome(nome);
+//        usuario.setUserName(userName);
+//        usuario.setPassword(password);
+//
+//        new UsuarioDAO().salvar(usuario);
+//    }
+//
+//    public void alterar(Integer id, String userName, String password, String nome) throws Exception {
+//        Usuario usuario = new Usuario();
+//        usuario.setIdUsuario(id);
+//        usuario.setUserName(userName);
+//        usuario.setPassword(password);
+//        usuario.setNome(nome);
+//
+//        new UsuarioDAO().alterar(usuario);
+//    }
 
     public List<Usuario> listaUsuarios() {
         UsuarioDAO dao = new UsuarioDAO();

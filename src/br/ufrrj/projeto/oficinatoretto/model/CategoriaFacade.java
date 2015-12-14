@@ -11,9 +11,13 @@ public class CategoriaFacade {
 	private Categoria categoria = new Categoria();
 	
 	public void registraCategoria(String nome, Integer superCategoria) {
-		Categoria superCat = new Categoria();
+		if (superCategoria != null ){
+			Categoria superCat = new Categoria();
+			superCat.setIdCategoria(superCategoria);
+			categoria.setCategoria(superCat);
+		}
 		categoria.setNome(nome);
-		categoria.setCategoria(superCat);
+		
 	}
 
     public void salvar() throws Exception {
