@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class CarroDialog extends JDialog {
@@ -79,36 +78,32 @@ public class CarroDialog extends JDialog {
 		placa.setColumns(10);
 		placa.setBounds(93, 163, 160, 20);
 		contentPanel.add(placa);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Salvar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						if (canSave()) {
-							Carro carro = new Carro(marca.getText(), modelo.getText(), new Integer(ano.getText()), cor.getText(), modelo.getText());
-							pane.addCarroToCliente(carro);
-							dispose();
-						}
-					}
-				});
-				okButton.setActionCommand("Salvar");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+		
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		
+		JButton okButton = new JButton("Salvar");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (canSave()) {
+					pane.addCarroToCliente(marca.getText(), modelo.getText(), ano.getText(), cor.getText(), modelo.getText());
+					dispose();
+				}
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+		});
+		okButton.setActionCommand("Salvar");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 			}
-		}
+		});
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
 	}
 	
 	private boolean canSave() {

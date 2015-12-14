@@ -1,6 +1,5 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,15 +37,7 @@ public class Carro implements IEntity{
 	@JoinColumn(name="clie_id")
 	private Cliente cliente;
 	
-	public Carro(){}
-	
-	public Carro(String modelo, String marca, Integer ano, String cor, String placa) {
-		this.modelo = modelo;
-		this.marca = marca;
-		this.ano = ano;
-		this.cor = cor;
-		this.placa = placa;
-	}
+	Carro(){}
 
 	@Override
 	public boolean isNew() {

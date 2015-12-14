@@ -7,13 +7,8 @@ import br.ufrrj.projeto.oficinatoretto.model.Peca;
 
 public class PecaDAO extends GenericDAO<Peca>{
 	
-	public void salvar(Peca peca) {
-        try {
-			save(peca);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Não foi possível salvar o peca.");
-		}
+	public void salvar(Peca peca) throws Exception{
+        save(peca);
     }
 
     public void alterar(Peca peca) {
