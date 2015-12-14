@@ -1,4 +1,4 @@
-package br.ufrrj.projeto.oficinatoretto.controller;
+package br.ufrrj.projeto.oficinatoretto.model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import br.ufrrj.projeto.oficinatoretto.dao.UsuarioDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Usuario;
 
-public class UsuarioController {
+public class UsuarioFacade {
 	
 	public Usuario login(String userName, String password) {
 		UsuarioDAO dao = new UsuarioDAO();
