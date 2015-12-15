@@ -28,7 +28,7 @@ public class Credito extends Pagamento {
 		return quantParcelas;
 	}
 
-	void setQuantParcelas(Integer quantParcelas) {
+	public void setQuantParcelas(Integer quantParcelas) {
 		parcelas = new ArrayList<Parcela>(); 
 		for (int i = 0; i < quantParcelas; i++) {
 			Parcela parcela = new Parcela();
@@ -48,7 +48,7 @@ public class Credito extends Pagamento {
 		return parcelas;
 	}
 
-	void setParcelas(List<Parcela> parcelas) {
+	public void setParcelas(List<Parcela> parcelas) {
 		this.parcelas = parcelas;
 	}
 
