@@ -31,5 +31,11 @@ public class CarroDAO extends GenericDAO<Carro>{
         return (Carro) session.createCriteria(persistentClass)
 			.add(Restrictions.eq("carr_id", id)).uniqueResult();
 	}
-
+	
+	public Carro findByPlaca(String placa)
+	{
+		Session session = (Session) getEntityManager().getDelegate();
+        return (Carro) session.createCriteria(persistentClass)
+			.add(Restrictions.eq("carr_placa", placa)).uniqueResult();
+	}
 }
