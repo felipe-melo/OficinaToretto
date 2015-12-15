@@ -7,13 +7,8 @@ import br.ufrrj.projeto.oficinatoretto.model.Carro;
 
 public class CarroDAO extends GenericDAO<Carro>{
 	
-	public void salvar(Carro carro) {
-        try {
-			save(carro);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Não foi possível salvar o carro.");
-		}
+	public void salvar(Carro carro) throws Exception {
+		save(carro);
     }
 
     public void alterar(Carro carro) {

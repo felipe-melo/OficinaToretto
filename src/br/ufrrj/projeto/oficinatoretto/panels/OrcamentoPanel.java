@@ -333,7 +333,6 @@ public class OrcamentoPanel extends JLayeredPane {
 			nAssociadoReparo.removeElement(r.getDescricaoBreve());
 			valor = valor.add(r.getValor());
 		}
-		orcamentoFacade.setOrcamento(orcamento);
 		lblValor.setText("Valor: " + valor);
 		btnAprovar.setVisible(true);
 	}
