@@ -43,7 +43,7 @@ public abstract class Pagamento implements IEntity{
 		return this.idPagamento;
 	}
 
-	public void setIdServico(Integer idPagamento) {
+	void setIdServico(Integer idPagamento) {
 		this.idPagamento = idPagamento;
 	}
 
@@ -51,7 +51,7 @@ public abstract class Pagamento implements IEntity{
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -59,11 +59,11 @@ public abstract class Pagamento implements IEntity{
 		return data;
 	}
 
-	public void setData(Date data) {
+	void setData(Date data) {
 		this.data = data;
 	}
 
-	public void setIdPagamento(Integer idPagamento) {
+	void setIdPagamento(Integer idPagamento) {
 		this.idPagamento = idPagamento;
 	}
 }

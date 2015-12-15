@@ -43,7 +43,7 @@ public class Reparo implements IEntity{
 		return this.idReparo;
 	}
 
-	public void setIdReparo(Integer idReparo) {
+	void setIdReparo(Integer idReparo) {
 		this.idReparo = idReparo;
 	}
 
@@ -51,7 +51,7 @@ public class Reparo implements IEntity{
 		return descricaoBreve;
 	}
 
-	public void setDescricaoBreve(String descricaoBreve) {
+	void setDescricaoBreve(String descricaoBreve) {
 		this.descricaoBreve = descricaoBreve;
 	}
 
@@ -59,7 +59,7 @@ public class Reparo implements IEntity{
 		return descricaoDetalhada;
 	}
 
-	public void setDescricaoDetalhada(String descricaoDetalhada) {
+	void setDescricaoDetalhada(String descricaoDetalhada) {
 		this.descricaoDetalhada = descricaoDetalhada;
 	}
 
@@ -67,7 +67,7 @@ public class Reparo implements IEntity{
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -75,7 +75,7 @@ public class Reparo implements IEntity{
 		return tempoExecucao;
 	}
 
-	public void setTempoExecucao(Integer tempoExecucao) {
+	void setTempoExecucao(Integer tempoExecucao) {
 		this.tempoExecucao = tempoExecucao;
 	}
 

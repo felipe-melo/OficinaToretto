@@ -28,7 +28,7 @@ public class TipoLogradouro implements IEntity{
 		return idTipoLogradouro;
 	}
 
-	public void setIdTipoLogradouro(Integer idTipoLogradouro) {
+	void setIdTipoLogradouro(Integer idTipoLogradouro) {
 		this.idTipoLogradouro = idTipoLogradouro;
 	}
 	
@@ -36,7 +36,7 @@ public class TipoLogradouro implements IEntity{
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

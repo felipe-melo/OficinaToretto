@@ -50,7 +50,7 @@ public class Cliente implements IEntity {
 		return idCliente;
 	}
 
-	public void setIdCliente(Integer idCliente) {
+	void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -58,7 +58,7 @@ public class Cliente implements IEntity {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -66,7 +66,7 @@ public class Cliente implements IEntity {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -74,7 +74,7 @@ public class Cliente implements IEntity {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
@@ -82,7 +82,7 @@ public class Cliente implements IEntity {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
@@ -90,11 +90,11 @@ public class Cliente implements IEntity {
 		return carros;
 	}
 
-	public void setCarros(List<Carro> carros) {
+	void setCarros(List<Carro> carros) {
 		this.carros = carros;
 	}
 	
-	public void addCarro(Carro carro) {
+	void addCarro(Carro carro) {
 		if (this.carros == null) this.carros = new ArrayList<Carro>();
 		this.carros.add(carro);
 	}

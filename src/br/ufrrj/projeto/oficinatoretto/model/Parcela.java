@@ -41,7 +41,7 @@ public class Parcela implements IEntity{
 		return idParcela;
 	}
 
-	public void setIdParcela(Integer idParcela) {
+	void setIdParcela(Integer idParcela) {
 		this.idParcela = idParcela;
 	}
 
@@ -49,7 +49,7 @@ public class Parcela implements IEntity{
 		return vencimento;
 	}
 
-	public void setVencimento(Date vencimento) {
+	void setVencimento(Date vencimento) {
 		this.vencimento = vencimento;
 	}
 
@@ -57,7 +57,7 @@ public class Parcela implements IEntity{
 		return paga;
 	}
 
-	public void setPaga(Boolean paga) {
+	void setPaga(Boolean paga) {
 		this.paga = paga;
 	}
 
@@ -65,7 +65,7 @@ public class Parcela implements IEntity{
 		return credito;
 	}
 
-	public void setCredito(Credito credito) {
+	void setCredito(Credito credito) {
 		this.credito = credito;
 	}
 

@@ -74,7 +74,7 @@ public class Orcamento implements IEntity{
 		return this.idOrcamento;
 	}
 
-	public void setIdOrcamento(Integer idOrcamento) {
+	void setIdOrcamento(Integer idOrcamento) {
 		this.idOrcamento = idOrcamento;
 	}
 
@@ -82,7 +82,7 @@ public class Orcamento implements IEntity{
 		return data;
 	}
 
-	public void setData(Date data) {
+	void setData(Date data) {
 		this.data = data;
 	}
 
@@ -90,7 +90,7 @@ public class Orcamento implements IEntity{
 		return carro;
 	}
 
-	public void setCarro(Carro carro) {
+	void setCarro(Carro carro) {
 		this.carro = carro;
 	}
 
@@ -98,7 +98,7 @@ public class Orcamento implements IEntity{
 		return comentario;
 	}
 
-	public void setComentario(String comentario) {
+	void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
 
@@ -106,7 +106,7 @@ public class Orcamento implements IEntity{
 		return aprovado;
 	}
 
-	public void setAprovado(Boolean aprovado) {
+	void setAprovado(Boolean aprovado) {
 		this.aprovado = aprovado;
 	}
 
@@ -114,7 +114,7 @@ public class Orcamento implements IEntity{
 		return reparos;
 	}
 
-	public void setReparos(List<Reparo> reparos) {
+	void setReparos(List<Reparo> reparos) {
 		this.reparos = reparos;
 	}
 	
@@ -122,7 +122,7 @@ public class Orcamento implements IEntity{
 		return pecas;
 	}
 
-	public void setPecas(List<Peca> pecas) {
+	void setPecas(List<Peca> pecas) {
 		this.pecas = pecas;
 	}
 
