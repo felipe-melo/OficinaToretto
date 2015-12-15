@@ -34,7 +34,7 @@ public class FabricantePanel extends JLayeredPane {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
 					try {
-						//fabricanteFacade.regristraFabricante(nome.getText(), telefone.getText());
+						fabricanteFacade.regristraFabricante(nome.getText(), telefone.getText());
 						fabricanteFacade.salvar();
 						StaticMethods.showAlertMessage("Fabricante salvo com sucesso");
 					} catch (Exception e1) {

@@ -17,15 +17,12 @@ public class OrcamentoFacade {
 	
 	private Orcamento orcamento = new Orcamento();
 	private Servico servico = new Servico();
+	private List<Orcamento> lista;
 	
 	public void registraOrcamento (Date data, String comentario) {
 		orcamento.setData(data);
 		orcamento.setComentario(comentario);
 		orcamento.setAprovado(false);
-	}
-	
-	public void setOrcamento(Orcamento orcamento) {
-		this.orcamento = orcamento;
 	}
 	
 	public void registrarServico(String quilometragem, QuantGasolina quant) {
@@ -67,6 +64,7 @@ public class OrcamentoFacade {
 	public void salvarServico() throws Exception {
 		ServicoDAO dao = new ServicoDAO();
 		OrcamentoDAO orcDao = new OrcamentoDAO();
+		orcamento.setAprovado(true);
 		orcamento = orcDao.getEntityManager().merge(orcamento);
 		dao.salvar(servico);
 	}
@@ -121,9 +119,14 @@ public class OrcamentoFacade {
         return null;
     }
     
+    public Orcamento setOrcamento(Integer index) {
+    	orcamento = lista.get(index);
+    	return orcamento;
+    }
+    
     public List<Orcamento> searchOrcamento(String cpf, String placa) {
     	OrcamentoDAO dao = new OrcamentoDAO();
-    	return dao.searchOrcamento(cpf, placa);
+    	return this.lista = dao.searchOrcamento(cpf, placa);
     }
 
     public void excluir(Integer id) throws Exception {

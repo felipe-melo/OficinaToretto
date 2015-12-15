@@ -51,6 +51,7 @@ public class PecaFacade {
 
     public void salvar() throws Exception {
         new PecaDAO().salvar(peca);
+        this.peca = new Peca();
     }
 
     public void alterar() throws Exception {

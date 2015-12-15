@@ -3,7 +3,6 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +16,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.TipoLogradouroDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.model.Cliente;
 import br.ufrrj.projeto.oficinatoretto.model.ClienteFacade;
-import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
-import br.ufrrj.projeto.oficinatoretto.model.Peca;
-import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 import br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
@@ -102,15 +97,10 @@ public class ClientePanel extends JLayeredPane {
 		add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-					BuscaClienteDialog buscaClienteDialog = new BuscaClienteDialog(ClientePanel.this, clienteFacade);
-					buscaClienteDialog.show();
+				BuscaClienteDialog buscaClienteDialog = new BuscaClienteDialog(ClientePanel.this, clienteFacade);
+				buscaClienteDialog.show();
 			}	
 		});
-			
-		
-		
-		
 		
 		JButton btnNewButton_1 = new JButton("Salvar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -123,7 +113,10 @@ public class ClientePanel extends JLayeredPane {
 						clienteFacade.registraDadosEndereco(map.get(tipoLogradouro.getSelectedItem()), logradouro.getText(), numero.getText(), complemento.getText(),
 								bairro.getText(), cidade.getText(), estado.getText(), cep.getText());
 						
-						clienteFacade.salvaCliente();
+						if (clienteFacade.hasId())
+							clienteFacade.alterar();
+						else
+							clienteFacade.salvaCliente();	
 						StaticMethods.showAlertMessage("Cliente salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -235,7 +228,7 @@ public class ClientePanel extends JLayeredPane {
 		obj[2] = ano;
 		obj[3] = placa;
 		aModel.addRow(obj);
-		this.clienteFacade.registraCarro(marca, modelo, new Integer(ano), cor, placa);
+		this.clienteFacade.registraCarro(modelo, marca, new Integer(ano), cor, placa);
 	}
 	
 	private boolean canSave(){
@@ -306,8 +299,23 @@ public class ClientePanel extends JLayeredPane {
 			this.cpf.setText(cli.getCpf());
 			this.nome.setText(cli.getNome());
 			this.telefone.setText(cli.getTelefone());
-		}
-		else{
+			this.logradouro.setText(cli.getEndereco().getLogradouro());
+			this.numero.setText(cli.getEndereco().getNumero());
+			this.complemento.setText(cli.getEndereco().getComplemento());
+			this.bairro.setText(cli.getEndereco().getBairro());
+			this.cidade.setText(cli.getEndereco().getCidade());
+			this.estado.setText(cli.getEndereco().getEstado());
+			this.cep.setText(cli.getEndereco().getCep());
+			
+			for (Carro car :  cli.getCarros()) {
+				Object[] obj = new Object[4];
+				obj[0] = car.getMarca();
+				obj[1] = car.getModelo();
+				obj[2] = car.getAno();
+				obj[3] = car.getPlaca();
+				aModel.addRow(obj);
+			}
+		} else {
 			StaticMethods.showAlertMessage("O cliente não existe");
 		}
 	}

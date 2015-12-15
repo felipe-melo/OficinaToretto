@@ -26,6 +26,7 @@ public class FornecedorFacade {
 
     public void salvar() throws Exception {
         new FornecedorDAO().salvar(fornecedor);
+        fornecedor = new Fornecedor();
     }
 
     public void alterar(Fornecedor fornecedor) throws Exception {

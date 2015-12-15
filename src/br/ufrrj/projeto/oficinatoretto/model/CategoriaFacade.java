@@ -22,6 +22,7 @@ public class CategoriaFacade {
 
     public void salvar() throws Exception {
         new CategoriaDAO().salvar(categoria);
+        this.categoria = new Categoria();
     }
 
     public void alterar(Categoria categoria) throws Exception {

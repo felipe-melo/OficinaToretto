@@ -26,8 +26,6 @@ public class BuscaOrcamentoDialog extends JDialog {
 	
 	private String[] columnNames = {"Data", "CPF", "Placa", "Marca"};
 	
-	private List<Orcamento> lista;
-	
 	/**
 	 * Create the dialog.
 	 */
@@ -74,7 +72,8 @@ public class BuscaOrcamentoDialog extends JDialog {
 				if (table.getSelectedRow() < 0){
 					StaticMethods.showAlertMessage("Selecione algum orçamento");
 				}else{
-					pane.addOrcamento(lista.get(table.getSelectedRow()));
+					Orcamento orc = orcamentoFacade.setOrcamento(table.getSelectedRow());
+					pane.addOrcamento(orc);
 					dispose();
 				}
 			}
@@ -86,7 +85,7 @@ public class BuscaOrcamentoDialog extends JDialog {
 		filtrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				lista = orcamentoFacade.searchOrcamento(cpf.getText(), placa.getText());
+				List<Orcamento> lista = orcamentoFacade.searchOrcamento(cpf.getText(), placa.getText());
 				
 				for (Orcamento o: lista) {
 					addOrcamento(o);

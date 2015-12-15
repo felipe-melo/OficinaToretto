@@ -2,14 +2,12 @@ package br.ufrrj.projeto.oficinatoretto.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
-import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 import br.ufrrj.projeto.oficinatoretto.model.ReparoFacade;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
@@ -20,6 +18,8 @@ public class ReparoPanel extends JLayeredPane {
 	private JTextField valor;
 	private JTextField tempoExecucao;
 	
+	private ReparoFacade reparoFacade = new ReparoFacade(); 
+	
 	public ReparoPanel() {
 		setLayout(null);
 		
@@ -27,13 +27,9 @@ public class ReparoPanel extends JLayeredPane {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (canSave()) {
-					ReparoFacade controller = new ReparoFacade();
 					try {
-						
-						BigDecimal valorBig = new BigDecimal(valor.getText());
-						Reparo reparo = new Reparo(descricaoBreve.getText(), descricaoDetalhada.getText(), valorBig, new Integer(tempoExecucao.getText()));
-						
-						controller.salvar(reparo);
+						reparoFacade.registraReparo(descricaoBreve.getText(), descricaoDetalhada.getText(), valor.getText(), tempoExecucao.getText());
+						reparoFacade.salvar();
 						StaticMethods.showAlertMessage("Reparo salvo com sucesso");
 					} catch (Exception e1) {
 						e1.printStackTrace();

@@ -30,15 +30,15 @@ public class ServicoDAO extends GenericDAO<Servico> {
 		return (Servico) session.createCriteria(persistentClass).add(Restrictions.eq("idServico", id)).uniqueResult();
 	}
 
-	public List<Servico> findByCar(String car) {
+	public List<Servico> findByCar(String placa) {
 		Session session = (Session) getEntityManager().getDelegate();
 
 		Criteria criteria = session.createCriteria(persistentClass);
 
-		// criteria.createAlias("carro", "car");
 		criteria.createAlias("orcamento", "orc");
-		if (car != null && !car.equals("")) {
-			criteria.add(Restrictions.eq("orc.carro.placa", car));
+		criteria.createAlias("orc.carro", "car");
+		if (placa != null && !placa.equals("")) {
+			criteria.add(Restrictions.eq("car.placa", placa));
 		}
 		
 		return (List<Servico>) criteria.list();

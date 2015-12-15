@@ -36,7 +36,7 @@ public class BuscaCarroDialog extends JDialog {
 	
 	private String[] columnNames = {"Marca", "Modelo", "Ano", "Placa"};
 	
-	private List<Carro> carros = new ArrayList<Carro>();
+	private List<Carro> carros;
 
 	/**
 	 * Create the dialog.
@@ -44,6 +44,8 @@ public class BuscaCarroDialog extends JDialog {
 	public BuscaCarroDialog(OrcamentoPanel pane, ClienteFacade facade) {
 		
 		Cliente cliente = facade.retornaCliente();
+		
+		carros = new ArrayList<Carro>();
 		
 		setBounds(100, 100, 632, 488);
 		getContentPane().setLayout(null);
@@ -198,8 +200,8 @@ public class BuscaCarroDialog extends JDialog {
 		}
 	}
 	
-	public void addCarro(Carro carro) {
-		this.carros.add(carro);
+	private void addCarro(Carro carro) {
+		carros.add(carro);
 		Object[] obj = new Object[4];
 		obj[0] = carro.getMarca();
 		obj[1] = carro.getModelo();

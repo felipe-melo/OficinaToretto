@@ -85,13 +85,13 @@ public class OrcamentoPanel extends JLayeredPane {
 						orcamentoFacade.registraReparos(reparos);
 						orcamentoFacade.registraPecas(pecas);
 						
-						if (orcamentoFacade.hasId()) {
-							orcamentoFacade.salvar();
-							btnAprovar.setVisible(true);
-						} else
+						if (orcamentoFacade.hasId())
+							orcamentoFacade.alterar();
+						else
 							orcamentoFacade.salvar();
 						
 						StaticMethods.showAlertMessage("Orçamento salva com sucesso");
+						btnAprovar.setVisible(true);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						StaticMethods.showAlertMessage(e1.getMessage());
@@ -333,7 +333,6 @@ public class OrcamentoPanel extends JLayeredPane {
 			nAssociadoReparo.removeElement(r.getDescricaoBreve());
 			valor = valor.add(r.getValor());
 		}
-		orcamentoFacade.setOrcamento(orcamento);
 		lblValor.setText("Valor: " + valor);
 		btnAprovar.setVisible(true);
 	}

@@ -13,10 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.dao.ServicoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
-import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 import br.ufrrj.projeto.oficinatoretto.model.Servico;
+import br.ufrrj.projeto.oficinatoretto.model.ServicoFacade;
+import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class BuscaCarroListDialog extends JDialog {
 	
@@ -26,8 +26,10 @@ public class BuscaCarroListDialog extends JDialog {
 	private String[] columnNames = {"Data", "Descrição"};
 	
 	private Carro carro ;
-	private List<Servico> servico = new ArrayList<Servico>();
-	private JTextField lblPlaca;
+	private List<Servico> servicos = new ArrayList<Servico>();
+	private JTextField placa;
+	
+	private ServicoFacade servicoFacade = new ServicoFacade();
 
 	/**
 	 * Create the dialog.
@@ -54,17 +56,17 @@ public class BuscaCarroListDialog extends JDialog {
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pane.addServico(servico.get(table.getSelectedRow()));
+				pane.addServico(servicos.get(table.getSelectedRow()));
 				dispose();
 			}
 		});
 		btnSelecionar.setBounds(21, 404, 89, 23);
 		getContentPane().add(btnSelecionar);
 		
-		lblPlaca = new JTextField();
-		lblPlaca.setBounds(155, 27, 152, 20);
-		getContentPane().add(lblPlaca);
-		lblPlaca.setColumns(10);
+		placa = new JTextField();
+		placa.setBounds(155, 27, 152, 20);
+		getContentPane().add(placa);
+		placa.setColumns(10);
 		
 		JLabel lblPlaca = new JLabel("Placa");
 		lblPlaca.setBounds(27, 30, 118, 14);
@@ -74,15 +76,11 @@ public class BuscaCarroListDialog extends JDialog {
 		buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String placa = lblPlaca.getText();
-				
-				if (placa == null) {
-					
+				if (placa.getText().equals("")) {
+					StaticMethods.showAlertMessage("Por favor preencha a placa");
 				}else{
-//					CarroDAO carroDao =  new CarroDAO();
-//					carro = carroDao.findByPlaca(placa);
-//					
-					ServicoDAO servDao = new ServicoDAO();
+					servicos = servicoFacade.listaServicos(placa.getText());
+					System.out.println(servicos.size());
 					updateListOfServicos();
 				}
 			}
@@ -98,10 +96,11 @@ public class BuscaCarroListDialog extends JDialog {
 			aModel.removeRow(i);
 		}
 		
-		for (Servico serv: servico) {
+		for (Servico serv: servicos) {
 			addOrcamentos(serv);
 		}
 	}
+	
 	public void addOrcamentos(Servico serv) {
 		Object[] obj = new Object[4];
 		obj[0] = serv.getOrcamento().getData();
