@@ -16,6 +16,12 @@
     	<class>br.ufrrj.projeto.oficinatoretto.model.Endereco</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.TipoLogradouro</class>
     	<class>br.ufrrj.projeto.oficinatoretto.model.Orcamento</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Servico</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Pagamento</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Dinheiro</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Credito</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Debito</class>
+    	<class>br.ufrrj.projeto.oficinatoretto.model.Parcela</class>
     	
 	    <properties>	
 	    	<property name="hibernate.connection.url" value="jdbc:postgresql://localhost/postgres"/>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.ufrrj.projeto.oficinatoretto.dao.CategoriaDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
 
 public class PecaFacade {
@@ -36,6 +37,16 @@ public class PecaFacade {
 		Categoria categoria = new Categoria();
 		categoria.setIdCategoria(idCategoria);
 		peca.setCategoria(categoria);
+	}
+	
+	public List<Categoria> retornaCategorias() {
+		CategoriaDAO dao = new CategoriaDAO();
+		try {
+			return dao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
     public void salvar() throws Exception {

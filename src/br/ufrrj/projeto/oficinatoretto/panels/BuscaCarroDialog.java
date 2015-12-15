@@ -13,9 +13,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.model.Cliente;
+import br.ufrrj.projeto.oficinatoretto.model.ClienteFacade;
 
 public class BuscaCarroDialog extends JDialog {
 	private JTextField nome;
@@ -41,7 +41,9 @@ public class BuscaCarroDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public BuscaCarroDialog(OrcamentoPanel pane, Cliente cliente) {
+	public BuscaCarroDialog(OrcamentoPanel pane, ClienteFacade facade) {
+		
+		Cliente cliente = facade.retornaCliente();
 		
 		setBounds(100, 100, 632, 488);
 		getContentPane().setLayout(null);

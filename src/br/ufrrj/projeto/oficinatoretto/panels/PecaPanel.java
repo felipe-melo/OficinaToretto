@@ -109,10 +109,8 @@ public class PecaPanel extends JLayeredPane {
 		lblTipoLogradouro.setBounds(59, 159, 89, 14);
 		add(lblTipoLogradouro);
 		
-		CategoriaDAO dao = new CategoriaDAO();
-		
 		try {
-			ArrayList<Categoria> lista = (ArrayList<Categoria>) dao.findAll();
+			ArrayList<Categoria> lista = (ArrayList<Categoria>) pecaFacade.retornaCategorias();
 			for (Categoria cat : lista) {
 				mapCat.put(cat.getNome(), cat.getIdCategoria());
 			}

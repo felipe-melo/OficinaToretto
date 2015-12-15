@@ -1,5 +1,6 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="orcamento")
@@ -57,6 +59,9 @@ public class Orcamento implements IEntity{
 		@JoinColumn(name="peca_codigo")
 	)
 	private List<Peca> pecas;
+	
+	@Transient
+	private BigDecimal valor;
 	
 	Orcamento() {}
 	
@@ -119,6 +124,21 @@ public class Orcamento implements IEntity{
 
 	public void setPecas(List<Peca> pecas) {
 		this.pecas = pecas;
+	}
+
+	public BigDecimal getValor() {
+		
+		valor = new BigDecimal(0);
+		
+		for (Reparo r: reparos) {
+			valor = valor.add(r.getValor());
+		}
+		
+		for (Peca p: pecas) {
+			valor = valor.add(p.getValorVenda());
+		}
+		
+		return valor;
 	}
 
 }

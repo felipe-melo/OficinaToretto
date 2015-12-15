@@ -1,0 +1,6 @@
+CREATE TABLE public.usuario (
+  usua_id INTEGER PRIMARY KEY NOT NULL,
+  usua_username TEXT NOT NULL,
+  usua_password TEXT NOT NULL,
+  usua_nome TEXT NOT NULL
+);

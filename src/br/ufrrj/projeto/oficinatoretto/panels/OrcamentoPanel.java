@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -21,10 +20,9 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JCalendar;
 
-import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
-import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.model.Cliente;
+import br.ufrrj.projeto.oficinatoretto.model.ClienteFacade;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 import br.ufrrj.projeto.oficinatoretto.model.OrcamentoFacade;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
@@ -52,9 +50,9 @@ public class OrcamentoPanel extends JLayeredPane {
 	
 	private JButton btnBuscar;
 	
-	private JCheckBox aprovado;
-	
 	private BigDecimal valor = new BigDecimal(0);
+	
+	private JButton btnAprovar;
 	
 	private OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 	
@@ -83,10 +81,15 @@ public class OrcamentoPanel extends JLayeredPane {
 							pecas.add(mapPec.get(associadoPeca.getElementAt(i)));
 						}
 						
-						orcamentoFacade.registraOrcamento(data.getDate(), comentario.getText(), aprovado.isSelected());
-						
+						orcamentoFacade.registraOrcamento(data.getDate(), comentario.getText());
 						orcamentoFacade.registraReparos(reparos);
 						orcamentoFacade.registraPecas(pecas);
+						
+						if (orcamentoFacade.hasId()) {
+							orcamentoFacade.salvar();
+							btnAprovar.setVisible(true);
+						} else
+							orcamentoFacade.salvar();
 						
 						StaticMethods.showAlertMessage("Orçamento salva com sucesso");
 					} catch (Exception e1) {
@@ -175,7 +178,7 @@ public class OrcamentoPanel extends JLayeredPane {
 		add(lblAssociado);
 		
 		comentario = new JTextArea();
-		comentario.setBounds(185, 128, 271, 69);
+		comentario.setBounds(185, 128, 271, 94);
 		add(comentario);
 		
 		cpf = new JTextField();
@@ -189,10 +192,11 @@ public class OrcamentoPanel extends JLayeredPane {
 				if (cpf.getText().equals("")) {
 					StaticMethods.showAlertMessage("Por favor preencha o cpf do cliente");
 				}else{
-					ClienteDAO dao = new ClienteDAO();
-					Cliente cliente = dao.findByCpf(cpf.getText());
-					if (cliente != null) {
-						BuscaCarroDialog buscaCarroDialog = new BuscaCarroDialog(OrcamentoPanel.this, cliente);
+					ClienteFacade facade = new ClienteFacade();
+					facade.findCliente(cpf.getText());
+					Cliente cli = facade.retornaCliente();
+					if (cli != null) {
+						BuscaCarroDialog buscaCarroDialog = new BuscaCarroDialog(OrcamentoPanel.this, facade);
 						buscaCarroDialog.show();
 					}else{
 						StaticMethods.showAlertMessage("Cliente não encontrado");
@@ -236,10 +240,8 @@ public class OrcamentoPanel extends JLayeredPane {
 		button_2.setBounds(526, 356, 49, 23);
 		add(button_2);
 		
-		PecaDAO pecDao = new PecaDAO();
-		
 		try {
-			ArrayList<Peca> lista = (ArrayList<Peca>) pecDao.findAll();
+			ArrayList<Peca> lista = (ArrayList<Peca>) orcamentoFacade.recuperaPecas();
 			for (Peca peca : lista) {
 				mapPec.put(peca.getDescricao(), peca);
 				nAssociadoPeca.addElement(peca.getDescricao());
@@ -289,13 +291,21 @@ public class OrcamentoPanel extends JLayeredPane {
 		btnBuscar.setBounds(109, 472, 89, 23);
 		add(btnBuscar);
 		
-		aprovado = new JCheckBox("Aprovar");
-		aprovado.setBounds(185, 204, 97, 23);
-		add(aprovado);
-		
 		lblValor = new JLabel("Valor:");
 		lblValor.setBounds(602, 11, 116, 14);
 		add(lblValor);
+		
+		btnAprovar = new JButton("Aprovar");
+		btnAprovar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ServicoDialog dialog = new ServicoDialog(OrcamentoPanel.this, orcamentoFacade);
+				dialog.show();
+			}
+		});
+		
+		btnAprovar.setBounds(208, 472, 89, 23);
+		btnAprovar.setVisible(false);
+		add(btnAprovar);
 	}
 	
 	public void addCarro(Carro carro) {
@@ -323,7 +333,18 @@ public class OrcamentoPanel extends JLayeredPane {
 			nAssociadoReparo.removeElement(r.getDescricaoBreve());
 			valor = valor.add(r.getValor());
 		}
+		orcamentoFacade.setOrcamento(orcamento);
 		lblValor.setText("Valor: " + valor);
+		btnAprovar.setVisible(true);
+	}
+	
+	public void addServico() {
+		try {
+			orcamentoFacade.salvarServico();
+			StaticMethods.showAlertMessage("Serviço salvo com sucesso");
+		} catch (Exception e) {
+			StaticMethods.showAlertMessage("Erro ao salvar o Serviço");
+		}
 	}
 	
 	private boolean canSave() {
