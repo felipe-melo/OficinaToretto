@@ -13,10 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.ufrrj.projeto.oficinatoretto.dao.CarroDAO;
-import br.ufrrj.projeto.oficinatoretto.dao.OrcamentoDAO;
+import br.ufrrj.projeto.oficinatoretto.dao.ServicoDAO;
 import br.ufrrj.projeto.oficinatoretto.model.Carro;
 import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
+import br.ufrrj.projeto.oficinatoretto.model.Servico;
 
 public class BuscaCarroListDialog extends JDialog {
 	
@@ -26,7 +26,7 @@ public class BuscaCarroListDialog extends JDialog {
 	private String[] columnNames = {"Data", "Descrição"};
 	
 	private Carro carro ;
-	private List<Orcamento> orcamento = new ArrayList<Orcamento>();
+	private List<Servico> servico = new ArrayList<Servico>();
 	private JTextField lblPlaca;
 
 	/**
@@ -54,7 +54,7 @@ public class BuscaCarroListDialog extends JDialog {
 		JButton btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pane.addServico(orcamento.get(table.getSelectedRow()));
+				pane.addServico(servico.get(table.getSelectedRow()));
 				dispose();
 			}
 		});
@@ -82,9 +82,8 @@ public class BuscaCarroListDialog extends JDialog {
 //					CarroDAO carroDao =  new CarroDAO();
 //					carro = carroDao.findByPlaca(placa);
 //					
-					OrcamentoDAO orcDao = new OrcamentoDAO();
-					orcamento = (ArrayList<Orcamento>) orcDao.searchOrcamento(null, placa);
-					updateListOfOrcamentos();
+					ServicoDAO servDao = new ServicoDAO();
+					updateListOfServicos();
 				}
 			}
 		});
@@ -93,20 +92,20 @@ public class BuscaCarroListDialog extends JDialog {
 		
 	}
 	
-	private void updateListOfOrcamentos(){
+	private void updateListOfServicos(){
 		
 		for (int i = 0; i < aModel.getRowCount(); i++){
 			aModel.removeRow(i);
 		}
 		
-		for (Orcamento orcamento : orcamento) {
-			addOrcamentos(orcamento);
+		for (Servico serv: servico) {
+			addOrcamentos(serv);
 		}
 	}
-	public void addOrcamentos(Orcamento orcamento) {
+	public void addOrcamentos(Servico serv) {
 		Object[] obj = new Object[4];
-		obj[0] = orcamento.getData();
-		obj[1] = orcamento.getIdOrcamento();
+		obj[0] = serv.getOrcamento().getData();
+		obj[1] = serv.getOrcamento().getComentario();
 		aModel.addRow(obj);
 	}
 }

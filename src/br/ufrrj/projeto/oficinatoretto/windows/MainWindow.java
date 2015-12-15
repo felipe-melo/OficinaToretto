@@ -14,6 +14,7 @@ import br.ufrrj.projeto.oficinatoretto.panels.FornecedorPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.OrcamentoPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.PecaPanel;
 import br.ufrrj.projeto.oficinatoretto.panels.ReparoPanel;
+import br.ufrrj.projeto.oficinatoretto.panels.ServicoPanel;
 
 public class MainWindow extends JFrame {
 
@@ -44,6 +45,7 @@ public class MainWindow extends JFrame {
 			tabbedPane.addTab("Fabricante", null, fabricantePanel, null);
 		}
 		if (usuario instanceof Gerente) {
+
 			FornecedorPanel fornecedorPanel = new FornecedorPanel();
 			tabbedPane.addTab("Fornecedor", null, fornecedorPanel, null);
 		}
@@ -60,8 +62,6 @@ public class MainWindow extends JFrame {
 		tabbedPane.addTab("Reparo", null, reparoPanel, null);
 		
 		OrcamentoPanel orcamentoPanel = new OrcamentoPanel();
-		tabbedPane.addTab("Orçamento", null, orcamentoPanel, null);
-		
-		
+		tabbedPane.addTab("Orçamento", null, orcamentoPanel, null);	
 	}
 }
