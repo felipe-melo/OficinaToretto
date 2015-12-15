@@ -18,13 +18,11 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
 
-import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
 import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
-import br.ufrrj.projeto.oficinatoretto.model.Cliente;
-import br.ufrrj.projeto.oficinatoretto.model.Orcamento;
 import br.ufrrj.projeto.oficinatoretto.model.OrcamentoFacade;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
+import br.ufrrj.projeto.oficinatoretto.model.Servico;
 import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class ServicoPanel extends JLayeredPane {
@@ -37,11 +35,9 @@ public class ServicoPanel extends JLayeredPane {
 	DefaultTableModel reparoTableModel = new DefaultTableModel();
 	private JTextField placa;
 	
-	private Map<String, Reparo> mapRep = new HashMap<String, Reparo>();
 	private Map<String, Peca> mapPec = new HashMap<String, Peca>();
 	
 	private BigDecimal valor = new BigDecimal(0);
-	private OrcamentoFacade orcamentoFacade = new OrcamentoFacade();
 	
 	public ServicoPanel() {
 		setLayout(null);
@@ -123,15 +119,15 @@ public class ServicoPanel extends JLayeredPane {
 		add(scrollPane);
 	}
 	
-	public void addServico(Orcamento orcamento) {
+	public void addServico(Servico serv) {
 		valor = new BigDecimal(0);
-		this.data.setDate(orcamento.getData());
-		for (Peca p : orcamento.getPecas()) {
+		this.data.setDate(serv.getOrcamento().getData());
+		for (Peca p : serv.getOrcamento().getPecas()) {
 			addPeca(p);
 			valor = valor.add(p.getValorVenda());
 		}
 		
-		for (Reparo r : orcamento.getReparos()) {
+		for (Reparo r : serv.getOrcamento().getReparos()) {
 			addReparo(r);
 			valor = valor.add(r.getValor());
 		}
