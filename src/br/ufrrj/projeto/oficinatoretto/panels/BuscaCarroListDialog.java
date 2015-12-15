@@ -80,7 +80,6 @@ public class BuscaCarroListDialog extends JDialog {
 					StaticMethods.showAlertMessage("Por favor preencha a placa");
 				}else{
 					servicos = servicoFacade.listaServicos(placa.getText());
-					System.out.println(servicos.size());
 					updateListOfServicos();
 				}
 			}
@@ -90,9 +89,9 @@ public class BuscaCarroListDialog extends JDialog {
 		
 	}
 	
-	private void updateListOfServicos(){
+	private void updateListOfServicos() {
 		
-		for (int i = 0; i < aModel.getRowCount(); i++){
+		for (int i = 0; i < aModel.getRowCount(); i++) {
 			aModel.removeRow(i);
 		}
 		
@@ -102,7 +101,7 @@ public class BuscaCarroListDialog extends JDialog {
 	}
 	
 	public void addOrcamentos(Servico serv) {
-		Object[] obj = new Object[4];
+		Object[] obj = new Object[2];
 		obj[0] = serv.getOrcamento().getData();
 		obj[1] = serv.getOrcamento().getComentario();
 		aModel.addRow(obj);

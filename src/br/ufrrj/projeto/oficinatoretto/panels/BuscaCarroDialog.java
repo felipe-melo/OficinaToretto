@@ -189,6 +189,7 @@ public class BuscaCarroDialog extends JDialog {
 		btnSelecionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				pane.addCarro(carros.get(table.getSelectedRow()));
+				//pane.addOrcamento();
 				dispose();
 			}
 		});

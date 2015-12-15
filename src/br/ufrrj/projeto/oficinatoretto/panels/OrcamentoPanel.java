@@ -320,14 +320,19 @@ public class OrcamentoPanel extends JLayeredPane {
 		this.placa.setText(carro.getPlaca());
 		this.data.setDate(orcamento.getData());
 		this.comentario.setText(orcamento.getComentario());
-		
+		for (int i = 0; i < associadoPeca.size(); i++) {
+			nAssociadoPeca.addElement(associadoPeca.getElementAt(i));
+			associadoPeca.removeElementAt(i);
+		}
 		for (Peca p : orcamento.getPecas()) {
-			associadoPeca.addElement(p);
 			nAssociadoPeca.removeElement(p.getDescricao());
 			associadoPeca.addElement(p.getDescricao());
 			valor = valor.add(p.getValorVenda());
 		}
-		
+		for (int i = 0; i < associadoReparo.size(); i++) {
+			nAssociadoReparo.addElement(associadoReparo.getElementAt(i));
+			associadoReparo.removeElementAt(i);
+		}
 		for (Reparo r : orcamento.getReparos()) {
 			associadoReparo.addElement(r.getDescricaoBreve());
 			nAssociadoReparo.removeElement(r.getDescricaoBreve());

@@ -48,9 +48,9 @@ public class OrcamentoFacade {
 		servico.setOrcamento(orcamento);
 	}
 	
-	public void registraCredito(Parcelas quantParcelas) {
+	public void registraCredito(String quantParcelas) {
 		Credito credito = new Credito();
-		credito.setQuantParcelas(new Integer(quantParcelas.name()));
+		credito.setQuantParcelas(new Integer(quantParcelas));
 		credito.setValor(orcamento.getValor());
 		credito.setData(new Date());
 		servico.setPagamento(credito);

@@ -1,7 +1,7 @@
 package br.ufrrj.projeto.oficinatoretto.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,6 +29,7 @@ public class Credito extends Pagamento {
 	}
 
 	public void setQuantParcelas(Integer quantParcelas) {
+		parcelas = new ArrayList<Parcela>(); 
 		for (int i = 0; i < quantParcelas; i++) {
 			Parcela parcela = new Parcela();
 			parcela.setPaga(false);

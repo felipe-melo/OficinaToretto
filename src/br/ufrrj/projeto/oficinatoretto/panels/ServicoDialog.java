@@ -27,7 +27,7 @@ public class ServicoDialog extends JDialog {
 	
 	private HashMap<String, QuantGasolina> mapQuantGasolina = new HashMap<String, QuantGasolina>();
 	private HashMap<String, TipoPagamento> mapTipoPagamento = new HashMap<String, TipoPagamento>();
-	private HashMap<String, Parcelas> mapParcelas = new HashMap<String, Parcelas>();
+	private HashMap<String, String> mapParcelas = new HashMap<String, String>();
 
 	/**
 	 * Create the dialog.
@@ -71,10 +71,10 @@ public class ServicoDialog extends JDialog {
 		quantGasolina.setBounds(174, 79, 160, 20);
 		contentPanel.add(quantGasolina);
 		
-		mapParcelas.put("1", Parcelas.um);
-		mapParcelas.put("2", Parcelas.dois);
-		mapParcelas.put("3", Parcelas.tres);
-		mapParcelas.put("4", Parcelas.quatro);
+		mapParcelas.put("1", "1");
+		mapParcelas.put("2", "2");
+		mapParcelas.put("3", "3");
+		mapParcelas.put("4", "4");
 		
 		JComboBox parcelas = new JComboBox(mapParcelas.keySet().toArray());
 		parcelas.setEnabled(false);

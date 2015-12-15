@@ -85,6 +85,10 @@ public class BuscaOrcamentoDialog extends JDialog {
 		filtrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				for (int i = 0; i < aModel.getRowCount(); i++){
+					aModel.removeRow(i);
+				}
+				
 				List<Orcamento> lista = orcamentoFacade.searchOrcamento(cpf.getText(), placa.getText());
 				
 				for (Orcamento o: lista) {
