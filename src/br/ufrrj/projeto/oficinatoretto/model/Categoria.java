@@ -39,7 +39,7 @@ public class Categoria implements IEntity{
 		return this.idCategoria;
 	}
 
-	public void setIdCategoria(Integer idCategoria) {
+	void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 
@@ -47,7 +47,7 @@ public class Categoria implements IEntity{
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	
@@ -55,7 +55,7 @@ public class Categoria implements IEntity{
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	void setNome(String nome) {
 		this.nome = nome;
 	}
 

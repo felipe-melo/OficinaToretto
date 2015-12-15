@@ -48,7 +48,7 @@ public class Carro implements IEntity{
 		return idCarro;
 	}
 
-	public void setIdCarro(Integer idCarro) {
+	void setIdCarro(Integer idCarro) {
 		this.idCarro = idCarro;
 	}
 
@@ -56,7 +56,7 @@ public class Carro implements IEntity{
 		return marca;
 	}
 
-	public void setMarca(String marca) {
+	void setMarca(String marca) {
 		this.marca = marca;
 	}
 
@@ -64,7 +64,7 @@ public class Carro implements IEntity{
 		return modelo;
 	}
 
-	public void setModelo(String modelo) {
+	void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -72,7 +72,7 @@ public class Carro implements IEntity{
 		return ano;
 	}
 
-	public void setAno(Integer ano) {
+	void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
@@ -80,7 +80,7 @@ public class Carro implements IEntity{
 		return cor;
 	}
 
-	public void setCor(String cor) {
+	void setCor(String cor) {
 		this.cor = cor;
 	}
 
@@ -88,7 +88,7 @@ public class Carro implements IEntity{
 		return placa;
 	}
 
-	public void setPlaca(String placa) {
+	void setPlaca(String placa) {
 		this.placa = placa;
 	}
 
@@ -96,7 +96,7 @@ public class Carro implements IEntity{
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	

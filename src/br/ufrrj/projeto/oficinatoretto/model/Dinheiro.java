@@ -21,7 +21,7 @@ public class Dinheiro extends Pagamento {
 		return valorPago;
 	}
 
-	public void setValorPago(BigDecimal valorPago) {
+	void setValorPago(BigDecimal valorPago) {
 		this.valorPago = valorPago;
 	}
 

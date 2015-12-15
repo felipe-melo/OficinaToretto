@@ -44,7 +44,7 @@ public abstract class Usuario implements IEntity{
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
+	void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -52,7 +52,7 @@ public abstract class Usuario implements IEntity{
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	void setUserName(String userName) {
 		this.userName = userName;
 	}
 
@@ -60,7 +60,7 @@ public abstract class Usuario implements IEntity{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -68,7 +68,7 @@ public abstract class Usuario implements IEntity{
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	void setNome(String nome) {
 		this.nome = nome;
 	}
 

@@ -78,7 +78,7 @@ public class Peca implements IEntity{
 		return this.idPeca;
 	}
 
-	public void setIdPeca(Integer idPeca) {
+	void setIdPeca(Integer idPeca) {
 		this.idPeca = idPeca;
 	}
 
@@ -86,7 +86,7 @@ public class Peca implements IEntity{
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
@@ -94,7 +94,7 @@ public class Peca implements IEntity{
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -102,7 +102,7 @@ public class Peca implements IEntity{
 		return valorCompra;
 	}
 
-	public void setValorCompra(BigDecimal valorCompra) {
+	void setValorCompra(BigDecimal valorCompra) {
 		this.valorCompra = valorCompra;
 	}
 
@@ -110,7 +110,7 @@ public class Peca implements IEntity{
 		return valorVenda;
 	}
 
-	public void setValorVenda(BigDecimal valorVenda) {
+	void setValorVenda(BigDecimal valorVenda) {
 		this.valorVenda = valorVenda;
 	}
 
@@ -118,7 +118,7 @@ public class Peca implements IEntity{
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -126,7 +126,7 @@ public class Peca implements IEntity{
 		return fabricante;
 	}
 
-	public void setFabricante(Fabricante fabricante) {
+	void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
 	}
 
@@ -134,11 +134,11 @@ public class Peca implements IEntity{
 		return fornecedores;
 	}
 
-	public void setFornecedores(List<Fornecedor> fornecedores) {
+	void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
 	
-	public void addFornecedor(Fornecedor fornecedor) {
+	void addFornecedor(Fornecedor fornecedor) {
 		if (fornecedores == null) fornecedores = new ArrayList<Fornecedor>();
 		fornecedores.add(fornecedor);
 	}

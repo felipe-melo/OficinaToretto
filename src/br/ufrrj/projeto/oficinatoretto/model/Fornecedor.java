@@ -48,7 +48,7 @@ public class Fornecedor implements IEntity{
 		return this.idFornecedor;
 	}
 
-	public void setUsuario(Integer idFornecedor) {
+	void setUsuario(Integer idFornecedor) {
 		this.idFornecedor = idFornecedor;
 	}
 
@@ -56,7 +56,7 @@ public class Fornecedor implements IEntity{
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
@@ -64,7 +64,7 @@ public class Fornecedor implements IEntity{
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -72,7 +72,7 @@ public class Fornecedor implements IEntity{
 		return responsavel;
 	}
 
-	public void setResponsavel(String responsavel) {
+	void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
 	}
 
@@ -80,11 +80,11 @@ public class Fornecedor implements IEntity{
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
-	public void setIdFornecedor(Integer idFornecedor) {
+	void setIdFornecedor(Integer idFornecedor) {
 		this.idFornecedor = idFornecedor;
 	}
 

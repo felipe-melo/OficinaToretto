@@ -66,7 +66,7 @@ public class Endereco implements IEntity{
 		return idEndereco;
 	}
 
-	public void setIdEndereco(Integer idEndereco) {
+	void setIdEndereco(Integer idEndereco) {
 		this.idEndereco = idEndereco;
 	}
 
@@ -74,7 +74,7 @@ public class Endereco implements IEntity{
 		return logradouro;
 	}
 
-	public void setLogradouro(String logradouro) {
+	void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
 
@@ -82,7 +82,7 @@ public class Endereco implements IEntity{
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -90,7 +90,7 @@ public class Endereco implements IEntity{
 		return complemento;
 	}
 
-	public void setComplemento(String complemento) {
+	void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 
@@ -98,7 +98,7 @@ public class Endereco implements IEntity{
 		return bairro;
 	}
 
-	public void setBairro(String bairro) {
+	void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 
@@ -106,7 +106,7 @@ public class Endereco implements IEntity{
 		return cidade;
 	}
 
-	public void setCidade(String cidade) {
+	void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 
@@ -114,7 +114,7 @@ public class Endereco implements IEntity{
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -122,7 +122,7 @@ public class Endereco implements IEntity{
 		return cep;
 	}
 
-	public void setCep(String cep) {
+	void setCep(String cep) {
 		this.cep = cep;
 	}
 
@@ -130,7 +130,7 @@ public class Endereco implements IEntity{
 		return tipoLogradouro;
 	}
 
-	public void setTipoLogradouro(TipoLogradouro tipoLogradouro) {
+	void setTipoLogradouro(TipoLogradouro tipoLogradouro) {
 		this.tipoLogradouro = tipoLogradouro;
 	}
 

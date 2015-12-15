@@ -40,7 +40,7 @@ public class Fabricante implements IEntity{
 		return this.idFabricante;
 	}
 
-	public void setIdFabricante(Integer idFabricante) {
+	void setIdFabricante(Integer idFabricante) {
 		this.idFabricante = idFabricante;
 	}
 
@@ -48,7 +48,7 @@ public class Fabricante implements IEntity{
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
@@ -56,7 +56,7 @@ public class Fabricante implements IEntity{
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	void setNome(String nome) {
 		this.nome = nome;
 	}
 
