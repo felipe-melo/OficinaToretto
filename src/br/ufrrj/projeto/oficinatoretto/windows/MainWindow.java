@@ -63,5 +63,8 @@ public class MainWindow extends JFrame {
 		
 		OrcamentoPanel orcamentoPanel = new OrcamentoPanel();
 		tabbedPane.addTab("Orçamento", null, orcamentoPanel, null);	
+		
+		ServicoPanel servicoPanel = new ServicoPanel();
+		tabbedPane.addTab("Serviço", null, servicoPanel, null);
 	}
 }

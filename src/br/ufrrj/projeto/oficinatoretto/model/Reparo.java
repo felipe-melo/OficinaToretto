@@ -32,16 +32,7 @@ public class Reparo implements IEntity{
 	@Column(name="repa_tempo_execucao")
 	private Integer tempoExecucao;
 	
-	public Reparo() {
-		
-	}
-	
-	public Reparo(String descricaoBreve, String descricaoDetalhada, BigDecimal valor, Integer tempoExecucao) {
-		this.descricaoBreve = descricaoBreve;
-		this.descricaoDetalhada = descricaoDetalhada;
-		this.valor = valor;
-		this.tempoExecucao = tempoExecucao;
-	}
+	Reparo() {}
 	
 	@Override
 	public boolean isNew() {

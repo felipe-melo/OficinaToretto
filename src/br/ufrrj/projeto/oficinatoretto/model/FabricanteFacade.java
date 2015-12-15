@@ -17,6 +17,7 @@ public class FabricanteFacade {
 
     public void salvar() throws Exception {
         new FabricanteDAO().salvar(fabricante);
+        fabricante = new Fabricante();
     }
 
     public void alterar() throws Exception {

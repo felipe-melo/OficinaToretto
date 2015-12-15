@@ -87,7 +87,7 @@ public class CarroDialog extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (canSave()) {
-					pane.addCarroToCliente(marca.getText(), modelo.getText(), ano.getText(), cor.getText(), modelo.getText());
+					pane.addCarroToCliente(marca.getText(), modelo.getText(), ano.getText(), cor.getText(), placa.getText());
 					dispose();
 				}
 			}

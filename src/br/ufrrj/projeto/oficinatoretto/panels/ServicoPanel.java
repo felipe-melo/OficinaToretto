@@ -19,11 +19,9 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JCalendar;
 
 import br.ufrrj.projeto.oficinatoretto.dao.PecaDAO;
-import br.ufrrj.projeto.oficinatoretto.model.OrcamentoFacade;
 import br.ufrrj.projeto.oficinatoretto.model.Peca;
 import br.ufrrj.projeto.oficinatoretto.model.Reparo;
 import br.ufrrj.projeto.oficinatoretto.model.Servico;
-import br.ufrrj.projeto.oficinatoretto.util.StaticMethods;
 
 public class ServicoPanel extends JLayeredPane {
 	
@@ -31,8 +29,9 @@ public class ServicoPanel extends JLayeredPane {
 	
 	private JLabel lblValor;
 
-	DefaultTableModel pacaTableModel = new DefaultTableModel();
-	DefaultTableModel reparoTableModel = new DefaultTableModel();
+	private DefaultTableModel pecaTableModel = new DefaultTableModel();
+	private DefaultTableModel reparoTableModel = new DefaultTableModel();
+	
 	private JTextField placa;
 	
 	private Map<String, Peca> mapPec = new HashMap<String, Peca>();
@@ -57,10 +56,10 @@ public class ServicoPanel extends JLayeredPane {
 		tableReparo.setModel(reparoTableModel);
 		
 		
-		JScrollPane scrollTablePeca = new JScrollPane();
-		scrollTablePeca.setBounds(32, 281, 332, 156);
+		JScrollPane scrollTableReparo = new JScrollPane(tableReparo);
+		scrollTableReparo.setBounds(32, 281, 332, 156);
 		
-		add(scrollTablePeca);
+		add(scrollTableReparo);
 		
 		JLabel lblFornecedor = new JLabel("Reparos");
 		lblFornecedor.setBounds(32, 233, 89, 14);
@@ -74,12 +73,8 @@ public class ServicoPanel extends JLayeredPane {
 		JButton btnSearch = new JButton("search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (placa.getText().equals("")) {
-					StaticMethods.showAlertMessage("Por favor preencha o cpf do cliente");
-				}else{
-					BuscaCarroListDialog buscaCarroDialog = new BuscaCarroListDialog(ServicoPanel.this);
-					buscaCarroDialog.show();
-				}
+				BuscaCarroListDialog buscaCarroDialog = new BuscaCarroListDialog(ServicoPanel.this);
+				buscaCarroDialog.show();
 			}
 		});
 		btnSearch.setBounds(366, 68, 78, 23);
@@ -110,13 +105,13 @@ public class ServicoPanel extends JLayeredPane {
 		add(lblData);
 		
 		String[] columnPecaNames = {"Peça", "Valor"};
-		pacaTableModel.setColumnIdentifiers(columnPecaNames);
+		pecaTableModel.setColumnIdentifiers(columnPecaNames);
 		JTable tablePeca = new JTable();
-		tablePeca.setModel(pacaTableModel);
+		tablePeca.setModel(pecaTableModel);
 		
-		JScrollPane scrollPane = new JScrollPane(tablePeca);
-		scrollPane.setBounds(386, 278, 332, 159);
-		add(scrollPane);
+		JScrollPane scrollPeca = new JScrollPane(tablePeca);
+		scrollPeca.setBounds(386, 278, 332, 159);
+		add(scrollPeca);
 	}
 	
 	public void addServico(Servico serv) {
@@ -138,13 +133,13 @@ public class ServicoPanel extends JLayeredPane {
 		Object[] obj = new Object[4];
 		obj[0] = peca.getDescricao();
 		obj[1] = peca.getValorVenda();
-		pacaTableModel.addRow(obj);
+		pecaTableModel.addRow(obj);
 	}
 	public void addReparo(Reparo reparo) {
 		Object[] obj = new Object[4];
 		obj[0] = reparo.getDescricaoBreve();
 		obj[1] = reparo.getValor();
-		pacaTableModel.addRow(obj);
+		reparoTableModel.addRow(obj);
 	}
 	
 }

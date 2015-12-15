@@ -85,13 +85,13 @@ public class OrcamentoPanel extends JLayeredPane {
 						orcamentoFacade.registraReparos(reparos);
 						orcamentoFacade.registraPecas(pecas);
 						
-						if (orcamentoFacade.hasId()) {
-							orcamentoFacade.salvar();
-							btnAprovar.setVisible(true);
-						} else
+						if (orcamentoFacade.hasId())
+							orcamentoFacade.alterar();
+						else
 							orcamentoFacade.salvar();
 						
 						StaticMethods.showAlertMessage("Orçamento salva com sucesso");
+						btnAprovar.setVisible(true);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 						StaticMethods.showAlertMessage(e1.getMessage());

@@ -64,6 +64,7 @@ public class OrcamentoFacade {
 	public void salvarServico() throws Exception {
 		ServicoDAO dao = new ServicoDAO();
 		OrcamentoDAO orcDao = new OrcamentoDAO();
+		orcamento.setAprovado(true);
 		orcamento = orcDao.getEntityManager().merge(orcamento);
 		dao.salvar(servico);
 	}

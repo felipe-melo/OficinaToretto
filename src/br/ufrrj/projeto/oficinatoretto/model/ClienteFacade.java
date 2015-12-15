@@ -5,16 +5,15 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.ufrrj.projeto.oficinatoretto.dao.ClienteDAO;
-import br.ufrrj.projeto.oficinatoretto.panels.BuscaClienteDialog;
 
 public class ClienteFacade {
 	
 	private Cliente cliente = new Cliente();
 
     public void registraDadosCliente(String nome, String cpf, String telefone) throws Exception {
-		cliente.setNome(nome);
-		cliente.setCpf(cpf);
-		cliente.setTelefone(telefone);
+		this.cliente.setNome(nome);
+		this.cliente.setCpf(cpf);
+		this.cliente.setTelefone(telefone);
     }
     
     public void registraDadosEndereco(Integer tipoLogradouro, String logradouro, String numero, String complemento,
@@ -22,7 +21,7 @@ public class ClienteFacade {
     	TipoLogradouro tipo = new TipoLogradouro();
     	tipo.setIdTipoLogradouro(tipoLogradouro);
     	Endereco endereco = new Endereco(tipo, logradouro, numero, complemento, bairro, cidade, estado, cep);
-    	cliente.setEndereco(endereco);
+    	this.cliente.setEndereco(endereco);
     }
     
     public void registraCarro(String modelo, String marca, Integer ano, String cor, String placa) {
@@ -32,14 +31,19 @@ public class ClienteFacade {
 		carro.setAno(ano);
 		carro.setCor(cor);
 		carro.setPlaca(placa);
-		cliente.addCarro(carro);
+		carro.setCliente(cliente);
+		this.cliente.addCarro(carro);
 	}
     
     public void salvaCliente() {
-		new ClienteDAO().salvar(cliente);
+		new ClienteDAO().salvar(this.cliente);
+    }
+    
+    public boolean hasId() {
+    	return !cliente.isNew();
     }
 
-    public void alterar(Cliente cliente) throws Exception {
+    public void alterar() throws Exception {
         new ClienteDAO().alterar(cliente);
     }
 
