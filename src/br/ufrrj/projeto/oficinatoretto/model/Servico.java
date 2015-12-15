@@ -46,7 +46,7 @@ public class Servico implements IEntity{
 		return this.idServico;
 	}
 
-	public void setIdServico(Integer idServico) {
+	void setIdServico(Integer idServico) {
 		this.idServico = idServico;
 	}
 	
@@ -54,7 +54,7 @@ public class Servico implements IEntity{
 		return this.pagamento;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
+	void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
 
@@ -62,7 +62,7 @@ public class Servico implements IEntity{
 		return quilometragem;
 	}
 
-	public void setQuilometragem(Integer quilometragem) {
+	void setQuilometragem(Integer quilometragem) {
 		this.quilometragem = quilometragem;
 	}
 
@@ -70,7 +70,7 @@ public class Servico implements IEntity{
 		return quantGasolina;
 	}
 
-	public void setQuantGasolina(String quantGasolina) {
+	void setQuantGasolina(String quantGasolina) {
 		this.quantGasolina = quantGasolina;
 	}
 
@@ -82,7 +82,7 @@ public class Servico implements IEntity{
 		return orcamento;
 	}
 
-	public void setOrcamento(Orcamento orcamento) {
+	void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
 	}
 	

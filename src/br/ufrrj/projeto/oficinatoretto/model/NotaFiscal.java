@@ -40,7 +40,7 @@ public class NotaFiscal implements IEntity{
 		return this.idNotaFiscal;
 	}
 
-	public void setIdNotaFiscal(Integer idNotaFiscal) {
+	void setIdNotaFiscal(Integer idNotaFiscal) {
 		this.idNotaFiscal = idNotaFiscal;
 	}
 
@@ -48,7 +48,7 @@ public class NotaFiscal implements IEntity{
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -56,7 +56,7 @@ public class NotaFiscal implements IEntity{
 		return servico;
 	}
 
-	public void setServico(Servico servico) {
+	void setServico(Servico servico) {
 		this.servico = servico;
 	}
 
